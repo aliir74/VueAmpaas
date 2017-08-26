@@ -2,28 +2,7 @@
 import { Bar } from 'vue-chartjs'
 
 export default Bar.extend({
-  data: function () {
-    var options = {
-      animation: {easing: 'easeOutBounce'},
-      scales: {
-        xAxes: [{
-          barPercentage: 1
-        }],
-        yAxes: [{
-          gridLines: {
-            display: true
-          },
-          display: true,
-          ticks: {
-            suggestedMin: 0,
-            suggestedMax: 100
-          }
-        }]
-      }
-    }
-    return {options}
-  },
-  props: ['chartData', 'update'],
+  props: ['chartData', 'update', 'options'],
   mounted () {
     // Overwriting base render method with actual data.
     this.renderChart(this.chartData, this.options)

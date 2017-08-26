@@ -48,49 +48,49 @@
       <v-container fill-height>
         <v-layout row wrap>
           <v-flex xs3 mb-2>
-            <v-card light @click="showModal(0)">
-              <bar-chart :chart-data="groups[0]" :update="update"></bar-chart>
+            <v-card light @click="showModal(0)" role="button">
+              <bar-chart :chart-data="groups[0]" :update="update" :options="options"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs3>
-            <v-card light @click="showModal(1)">
-              <bar-chart :chart-data="groups[1]"></bar-chart>
+            <v-card light @click="showModal(1)" role="button">
+              <bar-chart :chart-data="groups[1]" :options="options"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs3>
-            <v-card light @click="showModal(2)">
-              <bar-chart :chart-data="groups[2]"></bar-chart>
+            <v-card light @click="showModal(2)" role="button">
+              <bar-chart :chart-data="groups[2]" :options="options"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs3>
-            <v-card light @click="showModal(3)">
-              <bar-chart :chart-data="groups[3]"></bar-chart>
+            <v-card light @click="showModal(3)" role="button">
+              <bar-chart :chart-data="groups[3]" :options="options"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs3>
-            <v-card light @click="showModal(4)">
-              <bar-chart :chart-data="groups[4]"></bar-chart>
+            <v-card light @click="showModal(4)" role="button">
+              <bar-chart :chart-data="groups[4]" :options="options"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs3>
-            <v-card light @click="showModal(5)">
-              <bar-chart :chart-data="groups[5]"></bar-chart>
+            <v-card light @click="showModal(5)" role="button">
+              <bar-chart :chart-data="groups[5]" :options="options"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs3>
-            <v-card light @click="showModal(6)">
-              <bar-chart :chart-data="groups[6]"></bar-chart>
+            <v-card light @click="showModal(6)" role="button">
+              <bar-chart :chart-data="groups[6]" :options="options"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs3>
-            <v-card light @click="showModal(7)">
-              <bar-chart :chart-data="groups[7]"></bar-chart>
+            <v-card light @click="showModal(7)" role="button">
+              <bar-chart :chart-data="groups[7]" :options="options"></bar-chart>
             </v-card>
           </v-flex>
         </v-layout>
         <v-dialog v-model="dialog" persistent width="450px">
           <v-card light>
-            <bar-chart :chart-data="modalChartData" :update="updateModal"></bar-chart>
+            <bar-chart :chart-data="modalChartData" :update="updateModal" :options="modalOptions"></bar-chart>
             <v-card-actions light>
               <v-spacer></v-spacer>
               <v-btn class="green--text darken-1" flat="flat" @click.native="dialog = false">OK</v-btn>
@@ -108,6 +108,43 @@
   export default {
     data () {
       return {
+        options: {
+          animation: {easing: 'easeOutBounce'},
+          scales: {
+            xAxes: [{
+              barPercentage: 1
+            }],
+            yAxes: [{
+              gridLines: {
+                display: true
+              },
+              display: true,
+              ticks: {
+                suggestedMin: 0,
+                suggestedMax: 100
+              }
+            }]
+          }
+        },
+        modalOptions: {
+          animation: false,
+          scales: {
+            xAxes: [{
+              barPercentage: 1
+            }],
+            yAxes: [{
+              gridLines: {
+                display: true
+              },
+              display: true,
+              ticks: {
+                suggestedMin: 0,
+                suggestedMax: 100
+              }
+            }]
+          }
+        },
+        test: true,
         drawer: null,
         items: [
           { title: 'نمایش نمودارها', icon: 'dashboard' },
