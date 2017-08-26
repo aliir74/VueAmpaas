@@ -45,16 +45,16 @@
       <v-toolbar-title>Toolbar</v-toolbar-title>
     </v-toolbar>
     <main>
-      <v-container fluid fill-height>
+      <v-container fill-height>
         <v-layout row wrap>
           <v-flex xs3 mb-2>
             <v-card light>
-              <bar-chart></bar-chart>
+              <bar-chart :chart-data="groups[0]" :update="update"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs3>
-            <v-card light>
-              <bar-chart></bar-chart>
+            <v-card light @click="testFunc">
+              <bar-chart :chart-data="groups[0]"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs3>
@@ -107,11 +107,33 @@
           { title: 'اضافه کردن کارت', icon: 'question_answer' }
         ],
         mini: false,
-        right: null
+        right: null,
+        groups: [
+          {
+            labels: [1, 2, 3, 4, 5, 6, 7],
+            datasets: [
+              {
+                label: 'hello',
+                backgroundColor: '#f87979',
+                data: [1, 2, 3, 4, 5, 6, -100]
+              }
+            ]
+          }
+        ],
+        update: false
       }
     },
     components: {
       barChart
+    },
+    methods: {
+      testFunc: function () {
+        console.log(this.groups[0].datasets[0].data)
+        this.groups[0].datasets[0].data[0] += 10
+        this.update = !this.update
+        // this.groups[0].datasets[0].data.push(0)
+        // this.groups[0].datasets[0].data.splice((this.groups[0].datasets[0].data.length) - 1, 1)
+      }
     }
   }
 </script>

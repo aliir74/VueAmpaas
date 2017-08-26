@@ -1,18 +1,27 @@
 // CommitChart.js
-import { Bar } from 'vue-chartjs'
+import { Bar, mixins } from 'vue-chartjs'
 
 export default Bar.extend({
+  mixins: [mixins.reactiveProp],
+  props: ['chartData', 'options', 'update'],
   mounted () {
     // Overwriting base render method with actual data.
-    this.renderChart({
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    this.renderChart(this.chartData, this.options)
+    /*    this.renderChart({
+
       datasets: [
         {
-          label: 'GitHub Commits',
+          label: 'شاخص ها',
           backgroundColor: '#f87979',
-          data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11]
+          data: this.chartData
         }
       ]
-    })
+    }) */
+  },
+  watch: {
+    update: function () {
+      console.log(1)
+      this.renderChart(this.chartData, this.options)
+    }
   }
 })
