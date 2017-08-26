@@ -33,6 +33,8 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
-    }
-  }
+    },
+    vendor: ['vuetify']
+  },
+  plugins: ['~plugins/vuetify.js']
 }

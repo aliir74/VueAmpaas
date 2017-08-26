@@ -1,7 +1,14 @@
 <template>
-  <div>
-    <nuxt/>
-  </div>
+  <v-app>
+    <v-navigation-drawer></v-navigation-drawer>
+    <v-toolbar></v-toolbar>
+    <main>
+      <v-container fluid>
+        <nuxt/>
+      </v-container>
+    </main>
+    <v-footer></v-footer>
+  </v-app>
 </template>
 
 <style>

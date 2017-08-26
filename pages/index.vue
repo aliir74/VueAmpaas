@@ -13,6 +13,9 @@
         <a href="https://github.com/nuxt/nuxt.js" target="_blank" class="button--grey">GitHub</a>
       </div>
     </div>
+    <v-alert success icon="new_releases" v-bind:value="true">
+      This is a success alert with a custom icon.
+    </v-alert>
   </section>
 </template>
 
