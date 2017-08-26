@@ -46,12 +46,48 @@
     </v-toolbar>
     <main>
       <v-container fluid fill-height>
-        <v-layout>
-          <v-flex xs6 offset-xs3>
+        <v-layout row wrap>
+          <v-flex xs3 mb-2>
             <v-card light>
               <bar-chart></bar-chart>
             </v-card>
           </v-flex>
+          <v-flex xs3>
+            <v-card light>
+              <bar-chart></bar-chart>
+            </v-card>
+          </v-flex>
+          <v-flex xs3>
+            <v-card light>
+              <bar-chart></bar-chart>
+            </v-card>
+          </v-flex>
+          <v-flex xs3>
+            <v-card light>
+              <bar-chart></bar-chart>
+            </v-card>
+          </v-flex>
+          <v-flex xs3>
+            <v-card light>
+              <bar-chart></bar-chart>
+            </v-card>
+          </v-flex>
+          <v-flex xs3>
+            <v-card light>
+              <bar-chart></bar-chart>
+            </v-card>
+          </v-flex>
+          <v-flex xs3>
+            <v-card light>
+              <bar-chart></bar-chart>
+            </v-card>
+          </v-flex>
+          <v-flex xs3>
+            <v-card light>
+              <bar-chart></bar-chart>
+            </v-card>
+          </v-flex>
+
         </v-layout>
         <!--v-router-->
       </v-container>
@@ -81,5 +117,4 @@
 </script>
 
 <style>
-
 </style>
