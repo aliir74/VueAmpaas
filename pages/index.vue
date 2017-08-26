@@ -115,7 +115,7 @@
               {
                 label: 'hello',
                 backgroundColor: '#f87979',
-                data: [1, 2, 3, 4, 5, 6, -100]
+                data: [1, 2, 3, 4, 5, 6, 10]
               }
             ]
           }
@@ -128,11 +128,8 @@
     },
     methods: {
       testFunc: function () {
-        console.log(this.groups[0].datasets[0].data)
         this.groups[0].datasets[0].data[0] += 10
         this.update = !this.update
-        // this.groups[0].datasets[0].data.push(0)
-        // this.groups[0].datasets[0].data.splice((this.groups[0].datasets[0].data.length) - 1, 1)
       }
     }
   }
