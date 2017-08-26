@@ -13,7 +13,9 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "chart.js": "^2.6.0",
     "nuxt": "^1.0.0-rc3",
+    "vue-chartjs": "^2.8.2",
     "vuetify": "^0.14.11"
   },
   "devDependencies": {

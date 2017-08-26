@@ -48,7 +48,9 @@
       <v-container fluid fill-height>
         <v-layout>
           <v-flex xs6 offset-xs3>
-            <v-card height="200px"></v-card>
+            <v-card light>
+              <bar-chart></bar-chart>
+            </v-card>
           </v-flex>
         </v-layout>
         <!--v-router-->
@@ -58,17 +60,22 @@
 </template>
 
 <script>
+  import barChart from '~/components/barChart'
+
   export default {
     data () {
       return {
         drawer: null,
         items: [
-          { title: 'Home', icon: 'dashboard' },
-          { title: 'About', icon: 'question_answer' }
+          { title: 'نمایش نمودارها', icon: 'dashboard' },
+          { title: 'اضافه کردن کارت', icon: 'question_answer' }
         ],
         mini: false,
         right: null
       }
+    },
+    components: {
+      barChart
     }
   }
 </script>
