@@ -48,48 +48,55 @@
       <v-container fill-height>
         <v-layout row wrap>
           <v-flex xs3 mb-2>
-            <v-card light>
+            <v-card light @click="showModal(0)">
               <bar-chart :chart-data="groups[0]" :update="update"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs3>
-            <v-card light @click="testFunc">
-              <bar-chart :chart-data="groups[0]"></bar-chart>
+            <v-card light @click="showModal(1)">
+              <bar-chart :chart-data="groups[1]"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs3>
-            <v-card light>
-              <bar-chart></bar-chart>
+            <v-card light @click="showModal(2)">
+              <bar-chart :chart-data="groups[2]"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs3>
-            <v-card light>
-              <bar-chart></bar-chart>
+            <v-card light @click="showModal(3)">
+              <bar-chart :chart-data="groups[3]"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs3>
-            <v-card light>
-              <bar-chart></bar-chart>
+            <v-card light @click="showModal(4)">
+              <bar-chart :chart-data="groups[4]"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs3>
-            <v-card light>
-              <bar-chart></bar-chart>
+            <v-card light @click="showModal(5)">
+              <bar-chart :chart-data="groups[5]"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs3>
-            <v-card light>
-              <bar-chart></bar-chart>
+            <v-card light @click="showModal(6)">
+              <bar-chart :chart-data="groups[6]"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs3>
-            <v-card light>
-              <bar-chart></bar-chart>
+            <v-card light @click="showModal(7)">
+              <bar-chart :chart-data="groups[7]"></bar-chart>
             </v-card>
           </v-flex>
-
         </v-layout>
-        <!--v-router-->
+        <v-dialog v-model="dialog" persistent width="450px">
+          <v-card light>
+            <bar-chart :chart-data="modalChartData" :update="updateModal"></bar-chart>
+            <v-card-actions light>
+              <v-spacer></v-spacer>
+              <v-btn class="green--text darken-1" flat="flat" @click.native="dialog = false">OK</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </v-container>
     </main>
   </v-app>
@@ -110,17 +117,90 @@
         right: null,
         groups: [
           {
-            labels: [1, 2, 3, 4, 5, 6, 7],
+            labels: ['نظامی', 'اقتصادی', 'دیپلماسی', 'به-آموز', 'دادگستری', 'صنعت', 'عمران'],
             datasets: [
               {
-                label: 'hello',
-                backgroundColor: '#f87979',
+                label: 'گروه ۱',
+                backgroundColor: 'red',
+                data: [1, 2, 3, 4, 5, 6, 10]
+              }
+            ]
+          },
+          {
+            labels: ['نظامی', 'اقتصادی', 'دیپلماسی', 'به-آموز', 'دادگستری', 'صنعت', 'عمران'],
+            datasets: [
+              {
+                label: 'گروه ۲',
+                backgroundColor: 'blue',
+                data: [1, 2, 3, 4, 5, 6, 10]
+              }
+            ]
+          },
+          {
+            labels: ['نظامی', 'اقتصادی', 'دیپلماسی', 'به-آموز', 'دادگستری', 'صنعت', 'عمران'],
+            datasets: [
+              {
+                label: 'گروه ۳',
+                backgroundColor: 'green',
+                data: [1, 2, 3, 4, 5, 6, 10]
+              }
+            ]
+          },
+          {
+            labels: ['نظامی', 'اقتصادی', 'دیپلماسی', 'به-آموز', 'دادگستری', 'صنعت', 'عمران'],
+            datasets: [
+              {
+                label: 'گروه ۴',
+                backgroundColor: 'black',
+                data: [1, 2, 3, 4, 5, 6, 10]
+              }
+            ]
+          },
+          {
+            labels: ['نظامی', 'اقتصادی', 'دیپلماسی', 'به-آموز', 'دادگستری', 'صنعت', 'عمران'],
+            datasets: [
+              {
+                label: 'گروه ۵',
+                backgroundColor: 'yellow',
+                data: [1, 2, 3, 4, 5, 6, 10]
+              }
+            ]
+          },
+          {
+            labels: ['نظامی', 'اقتصادی', 'دیپلماسی', 'به-آموز', 'دادگستری', 'صنعت', 'عمران'],
+            datasets: [
+              {
+                label: 'گروه ۶',
+                backgroundColor: '',
+                data: [1, 2, 3, 4, 5, 6, 10]
+              }
+            ]
+          },
+          {
+            labels: ['نظامی', 'اقتصادی', 'دیپلماسی', 'به-آموز', 'دادگستری', 'صنعت', 'عمران'],
+            datasets: [
+              {
+                label: 'گروه ۷',
+                backgroundColor: 'orange',
+                data: [1, 2, 3, 4, 5, 6, 10]
+              }
+            ]
+          },
+          {
+            labels: ['نظامی', 'اقتصادی', 'دیپلماسی', 'به-آموز', 'دادگستری', 'صنعت', 'عمران'],
+            datasets: [
+              {
+                label: 'گروه ۸',
+                backgroundColor: 'purple',
                 data: [1, 2, 3, 4, 5, 6, 10]
               }
             ]
           }
         ],
-        update: false
+        update: false,
+        dialog: false,
+        modalChartData: null,
+        updateModal: false
       }
     },
     components: {
@@ -130,6 +210,13 @@
       testFunc: function () {
         this.groups[0].datasets[0].data[0] += 10
         this.update = !this.update
+        console.log(this.$children)
+      },
+      showModal: function (x) {
+        console.log('hello')
+        this.modalChartData = this.groups[x]
+        this.updateModal = !this.updateModal
+        this.dialog = !this.dialog
       }
     }
   }

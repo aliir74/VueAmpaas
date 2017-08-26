@@ -7,10 +7,12 @@ export default Bar.extend({
       animation: {easing: 'easeOutBounce'},
       scales: {
         xAxes: [{
-          barPercentage: 1,
-          categoryPercentage: 0.8
+          barPercentage: 1
         }],
         yAxes: [{
+          gridLines: {
+            display: true
+          },
           display: true,
           ticks: {
             suggestedMin: 0,
