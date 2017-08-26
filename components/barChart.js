@@ -6,6 +6,10 @@ export default Bar.extend({
     var options = {
       animation: {easing: 'easeOutBounce'},
       scales: {
+        xAxes: [{
+          barPercentage: 1,
+          categoryPercentage: 0.8
+        }],
         yAxes: [{
           display: true,
           ticks: {
