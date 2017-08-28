@@ -1,4 +1,4 @@
-<template>
+<template dir="rtl">
   <nuxt/>
 </template>
 

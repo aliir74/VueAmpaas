@@ -42,54 +42,83 @@
     </v-navigation-drawer>
     <v-toolbar fixed dark>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title>Toolbar</v-toolbar-title>
+      <v-toolbar-title>Toolbar
+
+      </v-toolbar-title>
     </v-toolbar>
     <main>
       <v-container fill-height>
         <v-layout row wrap>
           <v-flex xs3 mb-2>
             <v-card light @click="showModal(0)" role="button">
+              <div class="alert success pa-1 elevation-9" dir="rtl">
+                <strong class="ampaas-text">وضعیت عادی</strong>
+              </div>
               <bar-chart :chart-data="groups[0]" :update="update" :options="options"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs3>
             <v-card light @click="showModal(1)" role="button">
+              <div class="alert success pa-1 elevation-9" dir="rtl">
+                <strong class="ampaas-text">وضعیت عادی</strong>
+              </div>
               <bar-chart :chart-data="groups[1]" :options="options"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs3>
             <v-card light @click="showModal(2)" role="button">
+              <div class="alert red pa-1 elevation-9" dir="rtl">
+                <strong class="ampaas-text">آمپاس!!!</strong>
+              </div>
               <bar-chart :chart-data="groups[2]" :options="options"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs3>
             <v-card light @click="showModal(3)" role="button">
+              <div class="alert success pa-1 elevation-9" dir="rtl">
+                <strong class="ampaas-text">وضعیت عادی</strong>
+              </div>
               <bar-chart :chart-data="groups[3]" :options="options"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs3>
             <v-card light @click="showModal(4)" role="button">
+              <div class="alert success pa-1 elevation-9" dir="rtl">
+                <strong class="ampaas-text">وضعیت عادی</strong>
+              </div>
               <bar-chart :chart-data="groups[4]" :options="options"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs3>
             <v-card light @click="showModal(5)" role="button">
+              <div class="alert success pa-1 elevation-9" dir="rtl">
+                <strong class="ampaas-text">وضعیت عادی</strong>
+              </div>
               <bar-chart :chart-data="groups[5]" :options="options"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs3>
             <v-card light @click="showModal(6)" role="button">
+              <div class="alert success pa-1 elevation-9" dir="rtl">
+                <strong class="ampaas-text">وضعیت عادی</strong>
+              </div>
               <bar-chart :chart-data="groups[6]" :options="options"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs3>
             <v-card light @click="showModal(7)" role="button">
+              <div class="alert success pa-1 elevation-9 border-0" dir="rtl">
+                <strong class="ampaas-text">وضعیت عادی</strong>
+              </div>
               <bar-chart :chart-data="groups[7]" :options="options"></bar-chart>
             </v-card>
           </v-flex>
         </v-layout>
         <v-dialog v-model="dialog" persistent width="450px">
           <v-card light>
+            <div class="alert success pa-1 elevation-9 border-0" dir="rtl">
+              <strong class="ampaas-text">وضعیت عادی</strong>
+            </div>
             <bar-chart :chart-data="modalChartData" :update="updateModal" :options="modalOptions"></bar-chart>
             <v-card-actions light>
               <v-spacer></v-spacer>
@@ -260,4 +289,16 @@
 </script>
 
 <style>
+  .ampaas-text {
+    margin-right: auto !important;
+    margin-left: auto !important;
+  }
+
+  .red {
+    background-color: #ff0709;
+  }
+
+  .alert {
+    border-width: 0px !important;
+  }
 </style>
