@@ -142,7 +142,7 @@
                                         <v-text-field dir="ltr" v-model="testValue" type="number" :disabled="!newIndicator"></v-text-field>
                                       </v-flex>
                                       <v-flex xs10>
-                                        <v-slider v-model="testValue" :step="10" :min="-100" :max="100" :disabled="!newIndicator" snap thumb-label dark></v-slider>
+                                        <v-slider v-model="testValue" :step="1" :min="-100" :max="100" :disabled="!newIndicator" snap thumb-label dark></v-slider>
                                       </v-flex>
                                     </v-layout>
                                   </v-container>
@@ -165,13 +165,16 @@
                                   <v-container fluid>
                                     <v-layout row>
                                       <v-flex xs2>
+                                        <v-text-field :disabled="!newIndicator" dir="ltr" label="دوره زمانی" v-model="testValue" type="number"></v-text-field>
+                                      </v-flex>
+                                      <v-flex xs2>
                                         <v-text-field :disabled="!newIndicator" dir="ltr" label="تکرار" v-model="testValue" type="number"></v-text-field>
                                       </v-flex>
                                       <v-flex xs2>
                                         <v-text-field :disabled="!newIndicator" dir="ltr" v-model="testValue" type="number"></v-text-field>
                                       </v-flex>
-                                      <v-flex xs8>
-                                        <v-slider :disabled="!newIndicator" v-model="testValue" :step="10" :min="-100" :max="100" snap thumb-label dark></v-slider>
+                                      <v-flex xs6>
+                                        <v-slider :disabled="!newIndicator" v-model="testValue" :step="1" :min="-100" :max="100" snap thumb-label dark></v-slider>
                                       </v-flex>
                                     </v-layout>
                                   </v-container>
@@ -188,7 +191,9 @@
               </v-card-text>
               <v-card-actions light>
                 <v-spacer></v-spacer>
-                <v-btn class="green--text darken-1" flat="flat" @click.native="addProcessDialog = false">OK</v-btn>
+                <v-btn class="blue--text darken-1" flat="flat" @click.native="addProcessDialog = false">ذخیره</v-btn>
+                <v-btn class="blue--text darken-1" flat="flat" @click.native="addProcessDialog = false">ذخیره و اعمال</v-btn>
+                <v-btn class="blue--text darken-1" flat="flat" @click.native="addProcessDialog = false">اعمال</v-btn>
               </v-card-actions>
             </v-card>
         </v-dialog>
