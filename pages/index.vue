@@ -91,10 +91,12 @@
             <v-card dark>
               <v-card-text dir="rtl">
                 <v-container>
+                  <v-checkbox v-bind:label="'ساخت شاخص جدید'" v-model="newIndicator" dark></v-checkbox>
                   <v-text-field dir="rtl"
                                 name="input-1"
                                 label="نام شاخص جدید"
                                 id="indicatorName"
+                                :disabled="!newIndicator"
                   ></v-text-field>
                   <v-layout row>
                     <v-flex>
@@ -104,6 +106,7 @@
                         label="شاخص"
                         dark
                         item-value="text"
+                        :disabled="newIndicator"
                       ></v-select>
                     </v-flex>
                     <v-flex>
@@ -129,10 +132,10 @@
                                   <v-container fluid>
                                     <v-layout row>
                                       <v-flex xs2>
-                                        <v-text-field dir="ltr" v-model="testValue" type="number"></v-text-field>
+                                        <v-text-field dir="ltr" v-model="testValue" type="number" :disabled="!newIndicator"></v-text-field>
                                       </v-flex>
                                       <v-flex xs10>
-                                        <v-slider v-model="testValue" :step="10" :min="-100" :max="100" snap thumb-label dark></v-slider>
+                                        <v-slider v-model="testValue" :step="10" :min="-100" :max="100" :disabled="!newIndicator" snap thumb-label dark></v-slider>
                                       </v-flex>
                                     </v-layout>
                                   </v-container>
@@ -155,13 +158,13 @@
                                   <v-container fluid>
                                     <v-layout row>
                                       <v-flex xs2>
-                                        <v-text-field dir="ltr" label="تکرار" v-model="testValue" type="number"></v-text-field>
+                                        <v-text-field :disabled="!newIndicator" dir="ltr" label="تکرار" v-model="testValue" type="number"></v-text-field>
                                       </v-flex>
                                       <v-flex xs2>
-                                        <v-text-field dir="ltr" v-model="testValue" type="number"></v-text-field>
+                                        <v-text-field :disabled="!newIndicator" dir="ltr" v-model="testValue" type="number"></v-text-field>
                                       </v-flex>
                                       <v-flex xs8>
-                                        <v-slider v-model="testValue" :step="10" :min="-100" :max="100" snap thumb-label dark></v-slider>
+                                        <v-slider :disabled="!newIndicator" v-model="testValue" :step="10" :min="-100" :max="100" snap thumb-label dark></v-slider>
                                       </v-flex>
                                     </v-layout>
                                   </v-container>
@@ -229,6 +232,7 @@
             }]
           }
         },
+        newIndicator: true,
         test: true,
         testValue: -50,
         drawer: null,
@@ -370,13 +374,13 @@
   .input-group label{
     direction: rtl !important;
     text-align: right;
-    max-width: 100%;
     width: 100%;
     transform-origin: top right;
   }
 
   .input-group--text-field label{
-    right: 0 !important;
+    //right: 0 !important;
+    max-width: 100%;
   }
 
   .input-group__input {
