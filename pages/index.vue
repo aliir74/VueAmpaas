@@ -92,10 +92,85 @@
               <v-card-text dir="rtl">
                 <v-container>
                   <v-text-field dir="rtl"
-                    name="input-1"
-                    label="نام شاخص"
-                    id="testing"
+                                name="input-1"
+                                label="نام شاخص جدید"
+                                id="indicatorName"
                   ></v-text-field>
+                  <v-layout row>
+                    <v-flex>
+                      <v-select
+                        v-bind:items="indicatorList"
+                        v-model="selectedGroup"
+                        label="شاخص"
+                        dark
+                        item-value="text"
+                      ></v-select>
+                    </v-flex>
+                    <v-flex>
+                      <v-select
+                        v-bind:items="groupNames"
+                        v-model="selectedGroup"
+                        label="کشور"
+                        dark
+                        item-value="text"
+                      ></v-select>
+                    </v-flex>
+                  </v-layout>
+                  <v-expansion-panel>
+                    <v-expansion-panel-content>
+                      <div slot="header">تغییر آنی</div>
+                      <v-card>
+                        <v-card-text class="">
+                          <v-expansion-panel>
+                            <v-expansion-panel-content v-for="(item,i) in 8" :key="i">
+                              <div slot="header">رضایت اجتماعی</div>
+                              <v-card>
+                                <v-card-text class="">
+                                  <v-container fluid>
+                                    <v-layout row>
+                                      <v-flex xs2>
+                                        <v-text-field dir="ltr" v-model="testValue" type="number"></v-text-field>
+                                      </v-flex>
+                                      <v-flex xs10>
+                                        <v-slider v-model="testValue" :step="10" :min="-100" :max="100" snap thumb-label dark></v-slider>
+                                      </v-flex>
+                                    </v-layout>
+                                  </v-container>
+                                </v-card-text>
+                              </v-card>
+                            </v-expansion-panel-content>
+                          </v-expansion-panel>
+                        </v-card-text>
+                      </v-card>
+                    </v-expansion-panel-content>
+                    <v-expansion-panel-content>
+                      <div slot="header">تغییر تدریجی</div>
+                      <v-card>
+                        <v-card-text class="">
+                          <v-expansion-panel>
+                            <v-expansion-panel-content v-for="(item,i) in 8" :key="i">
+                              <div slot="header">رضایت اجتماعی</div>
+                              <v-card>
+                                <v-card-text class="">
+                                  <v-container fluid>
+                                    <v-layout row>
+                                      <v-flex xs2>
+                                        <v-text-field dir="ltr" v-model="testValue" type="number"></v-text-field>
+                                      </v-flex>
+                                      <v-flex xs10>
+                                        <v-slider v-model="testValue" :step="10" :min="-100" :max="100" snap thumb-label dark></v-slider>
+                                      </v-flex>
+                                    </v-layout>
+                                  </v-container>
+                                </v-card-text>
+                              </v-card>
+                            </v-expansion-panel-content>
+                          </v-expansion-panel>
+                        </v-card-text>
+                      </v-card>
+                    </v-expansion-panel-content>
+                  </v-expansion-panel>
+
                 </v-container>
               </v-card-text>
               <v-card-actions light>
@@ -152,6 +227,7 @@
           }
         },
         test: true,
+        testValue: -50,
         drawer: null,
         items: [
           { title: 'نمایش نمودارها', icon: 'dashboard' },
@@ -301,5 +377,14 @@
 
   .input-group__input {
     direction: rtl !important;
+  }
+
+  .expansion-panel__header::after {
+    content: "" !important;
+  }
+
+  .expansion-panel__header {
+    padding-left: 0px !important;
+    padding-right: 1rem;
   }
 </style>
