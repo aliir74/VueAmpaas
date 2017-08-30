@@ -68,7 +68,7 @@
             </v-card>
           </v-flex>
           <v-flex xs12 mb-2>
-            <v-btn fab dark small class="indigo">
+            <v-btn fab dark small class="indigo" @click="addProcess()">
               <v-icon dark>add</v-icon>
             </v-btn>
           </v-flex>
@@ -85,6 +85,24 @@
               <v-btn class="green--text darken-1" flat="flat" @click.native="dialog = false">OK</v-btn>
             </v-card-actions>
           </v-card>
+        </v-dialog>
+
+        <v-dialog v-model="addProcessDialog" persistent width="450px" dir="rtl">
+            <v-card dark>
+              <v-card-text dir="rtl">
+                <v-container>
+                  <v-text-field dir="rtl"
+                    name="input-1"
+                    label="نام شاخص"
+                    id="testing"
+                  ></v-text-field>
+                </v-container>
+              </v-card-text>
+              <v-card-actions light>
+                <v-spacer></v-spacer>
+                <v-btn class="green--text darken-1" flat="flat" @click.native="addProcessDialog = false">OK</v-btn>
+              </v-card-actions>
+            </v-card>
         </v-dialog>
       </v-container>
     </main>
@@ -225,6 +243,7 @@
         ],
         update: false,
         dialog: false,
+        addProcessDialog: true,
         modalChartData: null,
         updateModal: false
       }
@@ -239,10 +258,12 @@
         console.log(this.$children)
       },
       showModal: function (x) {
-        console.log('hello')
         this.modalChartData = this.groups[x]
         this.updateModal = !this.updateModal
         this.dialog = !this.dialog
+      },
+      addProcess: function () {
+        this.addProcessDialog = true
       }
     }
   }
@@ -260,5 +281,25 @@
 
   .alert {
     border-width: 0px !important;
+  }
+
+  label {
+    //direction: rtl !important;
+  }
+
+  .input-group label{
+    direction: rtl !important;
+    text-align: right;
+    max-width: 100%;
+    width: 100%;
+    transform-origin: top right;
+  }
+
+  .input-group--text-field label{
+    right: 0 !important;
+  }
+
+  .input-group__input {
+    direction: rtl !important;
   }
 </style>
