@@ -91,19 +91,26 @@
             <v-card dark>
               <v-card-text dir="rtl">
                 <v-container>
-                  <v-checkbox v-bind:label="'ساخت شاخص جدید'" v-model="newIndicator" dark></v-checkbox>
+                  <v-layout row>
+                    <v-flex mr-4>
+                      <v-checkbox v-bind:label="'ساخت شاخص جدید'" v-model="newIndicator" dark></v-checkbox>
+                    </v-flex>
+                    <v-flex mr-4>
+                      <v-checkbox v-bind:label="'ذخیره شاخص جدید'" v-model="saveIndicator" dark :disabled="!newIndicator"></v-checkbox>
+                    </v-flex>
+                  </v-layout>
                   <v-text-field dir="rtl"
                                 name="input-1"
                                 label="نام شاخص جدید"
                                 id="indicatorName"
-                                :disabled="!newIndicator"
+                                :disabled="!newIndicator || !saveIndicator"
                   ></v-text-field>
                   <v-layout row>
                     <v-flex>
                       <v-select
                         v-bind:items="indicatorList"
                         v-model="selectedGroup"
-                        label="شاخص"
+                        label="شاخص ها"
                         dark
                         item-value="text"
                         :disabled="newIndicator"
@@ -233,6 +240,7 @@
           }
         },
         newIndicator: true,
+        saveIndicator: true,
         test: true,
         testValue: -50,
         drawer: null,
