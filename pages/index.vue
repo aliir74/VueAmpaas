@@ -122,8 +122,8 @@
                       <v-card>
                         <v-card-text class="">
                           <v-expansion-panel>
-                            <v-expansion-panel-content v-for="(item,i) in 8" :key="i">
-                              <div slot="header">رضایت اجتماعی</div>
+                            <v-expansion-panel-content v-for="(item,i) in indicatorNames" :key="i">
+                              <div slot="header">{{item}}</div>
                               <v-card>
                                 <v-card-text class="">
                                   <v-container fluid>
@@ -148,16 +148,19 @@
                       <v-card>
                         <v-card-text class="">
                           <v-expansion-panel>
-                            <v-expansion-panel-content v-for="(item,i) in 8" :key="i">
-                              <div slot="header">رضایت اجتماعی</div>
+                            <v-expansion-panel-content v-for="(item,i) in indicatorNames" :key="i">
+                              <div slot="header">{{item}}</div>
                               <v-card>
                                 <v-card-text class="">
                                   <v-container fluid>
                                     <v-layout row>
                                       <v-flex xs2>
+                                        <v-text-field dir="ltr" label="تکرار" v-model="testValue" type="number"></v-text-field>
+                                      </v-flex>
+                                      <v-flex xs2>
                                         <v-text-field dir="ltr" v-model="testValue" type="number"></v-text-field>
                                       </v-flex>
-                                      <v-flex xs10>
+                                      <v-flex xs8>
                                         <v-slider v-model="testValue" :step="10" :min="-100" :max="100" snap thumb-label dark></v-slider>
                                       </v-flex>
                                     </v-layout>
@@ -235,6 +238,7 @@
         ],
         mini: false,
         right: null,
+        indicatorNames: ['نیروهای انتظامی و دفاع', 'مالی و اقتصادی', 'سیاست خارجی و دیپلماسی', 'بهداشت و آموزش', 'دادگستری و اطلاعات', 'کشاورزی و صنعت', 'عمران و آبادانی', 'رضایت اجتماعی'],
         groups: [
           {
             labels: ['نظامی', 'اقتصادی', 'دیپلماسی', 'به-آموز', 'دادگستری', 'صنعت', 'عمران', 'رضایت'],
