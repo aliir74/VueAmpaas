@@ -8,7 +8,7 @@
               <div class="alert success pa-1 elevation-9" dir="rtl">
                 <strong class="ampaas-text">کشور{{update}}</strong>
               </div>
-              <bar-chart :chart-data="groups[0]" :update="update" :options="options"></bar-chart>
+              <bar-chart :chart-data="countries[0].chartData" :update="update" :options="options"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs3>
@@ -16,7 +16,7 @@
               <div class="alert success pa-1 elevation-9" dir="rtl">
                 <strong class="ampaas-text">کشور</strong>
               </div>
-              <bar-chart :chart-data="groups[1]" :options="options"></bar-chart>
+              <bar-chart :chart-data="countries[1].chartData" :options="options"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs3>
@@ -24,7 +24,7 @@
               <div class="alert red pa-1 elevation-9" dir="rtl">
                 <strong class="ampaas-text">کشور</strong>
               </div>
-              <bar-chart :chart-data="groups[2]" :options="options"></bar-chart>
+              <bar-chart :chart-data="countries[2].chartData" :options="options"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs3>
@@ -32,7 +32,7 @@
               <div class="alert success pa-1 elevation-9" dir="rtl">
                 <strong class="ampaas-text">کشور</strong>
               </div>
-              <bar-chart :chart-data="groups[3]" :options="options"></bar-chart>
+              <bar-chart :chart-data="countries[3].chartData" :options="options"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs3>
@@ -40,7 +40,7 @@
               <div class="alert success pa-1 elevation-9" dir="rtl">
                 <strong class="ampaas-text">کشور</strong>
               </div>
-              <bar-chart :chart-data="groups[4]" :options="options"></bar-chart>
+              <bar-chart :chart-data="countries[4].chartData" :options="options"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs3>
@@ -48,7 +48,7 @@
               <div class="alert success pa-1 elevation-9" dir="rtl">
                 <strong class="ampaas-text">کشور</strong>
               </div>
-              <bar-chart :chart-data="groups[5]" :options="options"></bar-chart>
+              <bar-chart :chart-data="countries[5].chartData" :options="options"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs3>
@@ -56,7 +56,7 @@
               <div class="alert success pa-1 elevation-9" dir="rtl">
                 <strong class="ampaas-text">کشور</strong>
               </div>
-              <bar-chart :chart-data="groups[6]" :options="options"></bar-chart>
+              <bar-chart :chart-data="countries[6].chartData" :options="options"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs3>
@@ -64,7 +64,7 @@
               <div class="alert success pa-1 elevation-9 border-0" dir="rtl">
                 <strong class="ampaas-text">کشور</strong>
               </div>
-              <bar-chart :chart-data="groups[7]" :options="options"></bar-chart>
+              <bar-chart :chart-data="countries[7].chartData" :options="options"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs12 mb-2>
@@ -255,143 +255,141 @@
         mini: false,
         right: null,
         indicatorNames: ['نیروهای انتظامی و دفاع', 'مالی و اقتصادی', 'سیاست خارجی و دیپلماسی', 'بهداشت و آموزش', 'دادگستری و اطلاعات', 'کشاورزی و صنعت', 'عمران و آبادانی', 'رضایت اجتماعی'],
-        groups: [
-          {
-            labels: ['نظامی', 'اقتصادی', 'دیپلماسی', 'به-آموز', 'دادگستری', 'صنعت', 'عمران', 'رضایت'],
-            datasets: [
-              {
-                label: 'گروه ۱',
-                backgroundColor: 'red',
-                data: [1, 2, 3, 4, 5, 6, 10, 20]
-              }
-            ]
-          },
-          {
-            labels: ['نظامی', 'اقتصادی', 'دیپلماسی', 'به-آموز', 'دادگستری', 'صنعت', 'عمران', 'رضایت'],
-            datasets: [
-              {
-                label: 'گروه ۲',
-                backgroundColor: 'blue',
-                data: [1, 2, 3, 4, 5, 6, 10, 20]
-              }
-            ]
-          },
-          {
-            labels: ['نظامی', 'اقتصادی', 'دیپلماسی', 'به-آموز', 'دادگستری', 'صنعت', 'عمران', 'رضایت'],
-            datasets: [
-              {
-                label: 'گروه ۳',
-                backgroundColor: 'green',
-                data: [1, 2, 3, 4, 5, 6, 10, 20]
-              }
-            ]
-          },
-          {
-            labels: ['نظامی', 'اقتصادی', 'دیپلماسی', 'به-آموز', 'دادگستری', 'صنعت', 'عمران', 'رضایت'],
-            datasets: [
-              {
-                label: 'گروه ۴',
-                backgroundColor: 'black',
-                data: [1, 2, 3, 4, 5, 6, 10, 20]
-              }
-            ]
-          },
-          {
-            labels: ['نظامی', 'اقتصادی', 'دیپلماسی', 'به-آموز', 'دادگستری', 'صنعت', 'عمران', 'رضایت'],
-            datasets: [
-              {
-                label: 'گروه ۵',
-                backgroundColor: 'yellow',
-                data: [1, 2, 3, 4, 5, 6, 10, 20]
-              }
-            ]
-          },
-          {
-            labels: ['نظامی', 'اقتصادی', 'دیپلماسی', 'به-آموز', 'دادگستری', 'صنعت', 'عمران', 'رضایت'],
-            datasets: [
-              {
-                label: 'گروه ۶',
-                backgroundColor: '',
-                data: [1, 2, 3, 4, 5, 6, 10, 20]
-              }
-            ]
-          },
-          {
-            labels: ['نظامی', 'اقتصادی', 'دیپلماسی', 'به-آموز', 'دادگستری', 'صنعت', 'عمران', 'رضایت'],
-            datasets: [
-              {
-                label: 'گروه ۷',
-                backgroundColor: 'orange',
-                data: [1, 2, 3, 4, 5, 6, 10, 20]
-              }
-            ]
-          },
-          {
-            labels: ['نظامی', 'اقتصادی', 'دیپلماسی', 'به-آموز', 'دادگستری', 'صنعت', 'عمران', 'رضایت'],
-            datasets: [
-              {
-                label: 'گروه ۸',
-                backgroundColor: 'purple',
-                data: [1, 2, 3, 4, 5, 6, 10, 20]
-              }
-            ]
-          }
-        ],
         countries: [
           {
             name: 'کشور ۱',
             text: 'کشور ۱',
             value: 0,
-            indicators: [1, 2, 3, 4, 5, 6, 7, 8],
+            chartData:
+              {
+                labels: ['نظامی', 'اقتصادی', 'دیپلماسی', 'به-آموز', 'دادگستری', 'صنعت', 'عمران', 'رضایت'],
+                datasets: [
+                  {
+                    label: 'گروه ۱',
+                    backgroundColor: 'red',
+                    data: [1, 2, 3, 4, 5, 6, 10, 20]
+                  }
+                ]
+              },
             processes: []
           },
           {
             name: 'کشور ۲',
             text: 'کشور ۲',
             value: 1,
-            indicators: [1, 2, 3, 4, 5, 6, 7, 8],
+            chartData:
+              {
+                labels: ['نظامی', 'اقتصادی', 'دیپلماسی', 'به-آموز', 'دادگستری', 'صنعت', 'عمران', 'رضایت'],
+                datasets: [
+                  {
+                    label: 'گروه ۲',
+                    backgroundColor: 'red',
+                    data: [1, 2, 3, 4, 5, 6, 10, 20]
+                  }
+                ]
+              },
             processes: []
           },
           {
             name: 'کشور ۳',
             text: 'کشور ۳',
             value: 2,
-            indicators: [1, 2, 3, 4, 5, 6, 7, 8],
+            chartData:
+              {
+                labels: ['نظامی', 'اقتصادی', 'دیپلماسی', 'به-آموز', 'دادگستری', 'صنعت', 'عمران', 'رضایت'],
+                datasets: [
+                  {
+                    label: 'گروه ۳',
+                    backgroundColor: 'red',
+                    data: [1, 2, 3, 4, 5, 6, 10, 20]
+                  }
+                ]
+              },
             processes: []
           },
           {
             name: 'کشور ۴',
             text: 'کشور ۴',
             value: 3,
-            indicators: [1, 2, 3, 4, 5, 6, 7, 8],
+            chartData:
+              {
+                labels: ['نظامی', 'اقتصادی', 'دیپلماسی', 'به-آموز', 'دادگستری', 'صنعت', 'عمران', 'رضایت'],
+                datasets: [
+                  {
+                    label: 'گروه ۴',
+                    backgroundColor: 'red',
+                    data: [1, 2, 3, 4, 5, 6, 10, 20]
+                  }
+                ]
+              },
             processes: []
           },
           {
             name: 'کشور ۵',
             text: 'کشور ۵',
             value: 4,
-            indicators: [1, 2, 3, 4, 5, 6, 7, 8],
+            chartData:
+              {
+                labels: ['نظامی', 'اقتصادی', 'دیپلماسی', 'به-آموز', 'دادگستری', 'صنعت', 'عمران', 'رضایت'],
+                datasets: [
+                  {
+                    label: 'گروه ۵',
+                    backgroundColor: 'red',
+                    data: [1, 2, 3, 4, 5, 6, 10, 20]
+                  }
+                ]
+              },
             processes: []
           },
           {
             name: 'کشور ۶',
             text: 'کشور ۶',
             value: 5,
-            indicators: [1, 2, 3, 4, 5, 6, 7, 8],
+            chartData:
+              {
+                labels: ['نظامی', 'اقتصادی', 'دیپلماسی', 'به-آموز', 'دادگستری', 'صنعت', 'عمران', 'رضایت'],
+                datasets: [
+                  {
+                    label: 'گروه ۶',
+                    backgroundColor: 'red',
+                    data: [1, 2, 3, 4, 5, 6, 10, 20]
+                  }
+                ]
+              },
             processes: []
           },
           {
             name: 'کشور ۷',
             text: 'کشور ۷',
             value: 6,
-            indicators: [1, 2, 3, 4, 5, 6, 7, 8],
+            chartData:
+              {
+                labels: ['نظامی', 'اقتصادی', 'دیپلماسی', 'به-آموز', 'دادگستری', 'صنعت', 'عمران', 'رضایت'],
+                datasets: [
+                  {
+                    label: 'گروه ۷',
+                    backgroundColor: 'red',
+                    data: [1, 2, 3, 4, 5, 6, 10, 20]
+                  }
+                ]
+              },
             processes: []
           },
           {
             name: 'کشور ۸',
             text: 'کشور ۸',
             value: 7,
-            indicators: [1, 2, 3, 4, 5, 6, 7, 8],
+            chartData:
+              {
+                labels: ['نظامی', 'اقتصادی', 'دیپلماسی', 'به-آموز', 'دادگستری', 'صنعت', 'عمران', 'رضایت'],
+                datasets: [
+                  {
+                    label: 'گروه ۸',
+                    backgroundColor: 'red',
+                    data: [1, 2, 3, 4, 5, 6, 10, 20]
+                  }
+                ]
+              },
             processes: []
           }
         ],
@@ -633,7 +631,7 @@
     },
     methods: {
       testFunc: function () {
-        this.groups[0].datasets[0].data[0] += 10
+        this.countries[0].chartData.datasets[0].data[0] += 10
         // this.update = !this.update
         var newobj = this.update
         newobj.k = !newobj.k
@@ -641,7 +639,7 @@
         console.log(this.$children)
       },
       showModal: function (x) {
-        this.modalChartData = this.groups[x]
+        this.modalChartData = this.countries[x].chartData
         this.updateModal = !this.updateModal
         this.dialog = !this.dialog
       },
@@ -665,17 +663,17 @@
       },
       runProcess: function () {
         const that = this
+
         this.polling = setInterval(function () {
-          if (that.groups[0].datasets[0].data[0] > 50) {
+          if (that.countries[0].chartData.datasets[0].data[0] > 50) {
             console.log('end')
             that.kill()
           }
-          that.groups[0].datasets[0].data[0] += 3
+          that.countries[0].chartData.datasets[0].data[0] += 3
           that.update = !that.update
         }, 3000)
         this.$success('hey!')
         this.addProcessDialog = false
-        console.log(this.addProcessDialog)
       },
       kill: function () {
         clearInterval(this.polling)
