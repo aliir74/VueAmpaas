@@ -165,6 +165,9 @@
                                   <v-container fluid>
                                     <v-layout row>
                                       <v-flex xs2>
+                                        <v-text-field :disabled="!newIndicator" dir="ltr" label="زمان شروع" v-model="testValue" type="number"></v-text-field>
+                                      </v-flex>
+                                      <v-flex xs2>
                                         <v-text-field :disabled="!newIndicator" dir="ltr" label="دوره زمانی" v-model="testValue" type="number"></v-text-field>
                                       </v-flex>
                                       <v-flex xs2>
@@ -173,7 +176,7 @@
                                       <v-flex xs2>
                                         <v-text-field :disabled="!newIndicator" dir="ltr" v-model="testValue" type="number"></v-text-field>
                                       </v-flex>
-                                      <v-flex xs6>
+                                      <v-flex xs4>
                                         <v-slider :disabled="!newIndicator" v-model="testValue" :step="1" :min="-100" :max="100" snap thumb-label dark></v-slider>
                                       </v-flex>
                                     </v-layout>
@@ -249,10 +252,6 @@
         test: true,
         testValue: -50,
         drawer: null,
-        items: [
-          { title: 'نمایش نمودارها', icon: 'dashboard' },
-          { title: 'اضافه کردن کارت', icon: 'question_answer' }
-        ],
         mini: false,
         right: null,
         indicatorNames: ['نیروهای انتظامی و دفاع', 'مالی و اقتصادی', 'سیاست خارجی و دیپلماسی', 'بهداشت و آموزش', 'دادگستری و اطلاعات', 'کشاورزی و صنعت', 'عمران و آبادانی', 'رضایت اجتماعی'],
@@ -334,6 +333,104 @@
                 label: 'گروه ۸',
                 backgroundColor: 'purple',
                 data: [1, 2, 3, 4, 5, 6, 10, 20]
+              }
+            ]
+          }
+        ],
+        countries: [
+          {
+            name: 'کشور ۱',
+            indicators: [1, 2, 3, 4, 5, 6, 7, 8],
+            processes: []
+          },
+          {
+            name: 'کشور ۲',
+            indicators: [1, 2, 3, 4, 5, 6, 7, 8],
+            processes: []
+          },
+          {
+            name: 'کشور ۳',
+            indicators: [1, 2, 3, 4, 5, 6, 7, 8],
+            processes: []
+          },
+          {
+            name: 'کشور ۴',
+            indicators: [1, 2, 3, 4, 5, 6, 7, 8],
+            processes: []
+          },
+          {
+            name: 'کشور ۵',
+            indicators: [1, 2, 3, 4, 5, 6, 7, 8],
+            processes: []
+          },
+          {
+            name: 'کشور ۶',
+            indicators: [1, 2, 3, 4, 5, 6, 7, 8],
+            processes: []
+          },
+          {
+            name: 'کشور ۷',
+            indicators: [1, 2, 3, 4, 5, 6, 7, 8],
+            processes: []
+          },
+          {
+            name: 'کشور ۸',
+            indicators: [1, 2, 3, 4, 5, 6, 7, 8],
+            processes: []
+          }
+        ],
+        processes: [
+          {
+            name: 'روند ۱',
+            immediate: [0, 0, 0, 0, 0, 0, 0, 0],
+            gradual: [
+              {
+                value: 0,
+                period: 0,
+                repeat: 0,
+                startTime: 0
+              },
+              {
+                value: 0,
+                period: 0,
+                repeat: 0,
+                startTime: 0
+              },
+              {
+                value: 0,
+                period: 0,
+                repeat: 0,
+                startTime: 0
+              },
+              {
+                value: 0,
+                period: 0,
+                repeat: 0,
+                startTime: 0
+              },
+              {
+                value: 0,
+                period: 0,
+                repeat: 0,
+                startTime: 0
+              },
+              {
+                value: 0,
+                period: 0,
+                repeat: 0,
+                startTime: 0
+              },
+              {
+                value: 0,
+                period: 0,
+                repeat: 0,
+                startTime: 0
+              },
+              {
+                value: 0,
+                period: 0,
+                repeat: 0,
+                startTime: 0
               }
             ]
           }
