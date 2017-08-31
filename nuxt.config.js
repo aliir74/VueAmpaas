@@ -38,5 +38,6 @@ module.exports = {
     vendor: ['vuetify']
   },
   plugins: ['plugins/vuetify.js'],
-  //css: ['node_modules/vuetify/dist/vuetify.min.css']
+  // css: ['node_modules/vuetify/dist/vuetify.min.css']
+  modules: ['@nuxtjs/toast']
 }

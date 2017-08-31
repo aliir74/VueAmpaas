@@ -648,6 +648,10 @@
       },
       saveProcess: function () {
         var newobj = JSON.parse(JSON.stringify(this.tmpProcess))
+        if (this.indicatorName === '') {
+          this.$error('err')
+          return
+        }
         newobj.text = this.indicatorName
         newobj.value = this.processes.length
         this.processes.push(newobj)
