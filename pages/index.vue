@@ -102,7 +102,8 @@
                   <v-text-field dir="rtl"
                                 name="input-1"
                                 label="نام شاخص جدید"
-                                id="indicatorName"
+                                v-model="indicatorName"
+                                id=""
                                 :disabled="!newIndicator || !saveIndicator"
                   ></v-text-field>
                   <v-layout row>
@@ -115,15 +116,14 @@
                         item-value="value"
                         :disabled="newIndicator"
                       ></v-select>
-                      {{selectedProcess}}
                     </v-flex>
                     <v-flex>
                       <v-select
-                        v-bind:items="groupNames"
-                        v-model="selectedGroup"
+                        v-bind:items="countries"
+                        v-model="selectedCountry"
                         label="کشور"
                         dark
-                        item-value="text"
+                        item-value="value"
                       ></v-select>
                     </v-flex>
                   </v-layout>
@@ -140,10 +140,10 @@
                                   <v-container fluid>
                                     <v-layout row>
                                       <v-flex xs2>
-                                        <v-text-field dir="ltr" v-model="processes[selectedProcess].immediate[i]" type="number" :disabled="!newIndicator"></v-text-field>
+                                        <v-text-field dir="ltr" v-model="tmpProcess.immediate[i]" type="number" :disabled="!newIndicator"></v-text-field>
                                       </v-flex>
                                       <v-flex xs10>
-                                        <v-slider v-model="processes[selectedProcess].immediate[i]" :step="1" :min="-100" :max="100" :disabled="!newIndicator" snap thumb-label dark></v-slider>
+                                        <v-slider v-model="tmpProcess.immediate[i]" :step="1" :min="-100" :max="100" :disabled="!newIndicator" snap thumb-label dark></v-slider>
                                       </v-flex>
                                     </v-layout>
                                   </v-container>
@@ -166,19 +166,19 @@
                                   <v-container fluid>
                                     <v-layout row>
                                       <v-flex xs2>
-                                        <v-text-field :disabled="!newIndicator" dir="ltr" label="زمان شروع" v-model="processes[selectedProcess].gradual[i].startTime" type="number"></v-text-field>
+                                        <v-text-field :disabled="!newIndicator" dir="ltr" label="زمان شروع" v-model="tmpProcess.gradual[i].startTime" type="number"></v-text-field>
                                       </v-flex>
                                       <v-flex xs2>
-                                        <v-text-field :disabled="!newIndicator" dir="ltr" label="دوره زمانی" v-model="processes[selectedProcess].gradual[i].period" type="number"></v-text-field>
+                                        <v-text-field :disabled="!newIndicator" dir="ltr" label="دوره زمانی" v-model="tmpProcess.gradual[i].period" type="number"></v-text-field>
                                       </v-flex>
                                       <v-flex xs2>
-                                        <v-text-field :disabled="!newIndicator" dir="ltr" label="تکرار" v-model="processes[selectedProcess].gradual[i].repeat" type="number"></v-text-field>
+                                        <v-text-field :disabled="!newIndicator" dir="ltr" label="تکرار" v-model="tmpProcess.gradual[i].repeat" type="number"></v-text-field>
                                       </v-flex>
                                       <v-flex xs2>
-                                        <v-text-field :disabled="!newIndicator" dir="ltr" v-model="processes[selectedProcess].gradual[i].value" type="number"></v-text-field>
+                                        <v-text-field :disabled="!newIndicator" dir="ltr" v-model="tmpProcess.gradual[i].value" type="number"></v-text-field>
                                       </v-flex>
                                       <v-flex xs4>
-                                        <v-slider :disabled="!newIndicator" v-model="processes[selectedProcess].gradual[i].value" :step="1" :min="-100" :max="100" snap thumb-label dark></v-slider>
+                                        <v-slider :disabled="!newIndicator" v-model="tmpProcess.gradual[i].value" :step="1" :min="-100" :max="100" snap thumb-label dark></v-slider>
                                       </v-flex>
                                     </v-layout>
                                   </v-container>
@@ -195,7 +195,7 @@
               </v-card-text>
               <v-card-actions light>
                 <v-spacer></v-spacer>
-                <v-btn class="blue--text darken-1" flat="flat" @click.native="addProcessDialog = false">ذخیره</v-btn>
+                <v-btn class="blue--text darken-1" flat="flat" @click.native="saveProcess">ذخیره</v-btn>
                 <v-btn class="blue--text darken-1" flat="flat" @click.native="addProcessDialog = false">ذخیره و اعمال</v-btn>
                 <v-btn class="blue--text darken-1" flat="flat" @click.native="addProcessDialog = false">اعمال</v-btn>
               </v-card-actions>
@@ -341,41 +341,57 @@
         countries: [
           {
             name: 'کشور ۱',
+            text: 'کشور ۱',
+            value: 0,
             indicators: [1, 2, 3, 4, 5, 6, 7, 8],
             processes: []
           },
           {
             name: 'کشور ۲',
+            text: 'کشور ۲',
+            value: 1,
             indicators: [1, 2, 3, 4, 5, 6, 7, 8],
             processes: []
           },
           {
             name: 'کشور ۳',
+            text: 'کشور ۳',
+            value: 2,
             indicators: [1, 2, 3, 4, 5, 6, 7, 8],
             processes: []
           },
           {
             name: 'کشور ۴',
+            text: 'کشور ۴',
+            value: 3,
             indicators: [1, 2, 3, 4, 5, 6, 7, 8],
             processes: []
           },
           {
             name: 'کشور ۵',
+            text: 'کشور ۵',
+            value: 4,
             indicators: [1, 2, 3, 4, 5, 6, 7, 8],
             processes: []
           },
           {
             name: 'کشور ۶',
+            text: 'کشور ۶',
+            value: 5,
             indicators: [1, 2, 3, 4, 5, 6, 7, 8],
             processes: []
           },
           {
             name: 'کشور ۷',
+            text: 'کشور ۷',
+            value: 6,
             indicators: [1, 2, 3, 4, 5, 6, 7, 8],
             processes: []
           },
           {
             name: 'کشور ۸',
+            text: 'کشور ۸',
+            value: 7,
             indicators: [1, 2, 3, 4, 5, 6, 7, 8],
             processes: []
           }
@@ -492,7 +508,119 @@
             ]
           }
         ],
-        selectedProcess: 0,
+        defaultProcess: {
+          text: 'دیفالت',
+          value: -1,
+          immediate: [0, 0, 0, 0, 0, 0, 0, 0],
+          gradual: [
+            {
+              value: 0,
+              period: 0,
+              repeat: 0,
+              startTime: 0
+            },
+            {
+              value: 0,
+              period: 0,
+              repeat: 0,
+              startTime: 0
+            },
+            {
+              value: 0,
+              period: 0,
+              repeat: 0,
+              startTime: 0
+            },
+            {
+              value: 0,
+              period: 0,
+              repeat: 0,
+              startTime: 0
+            },
+            {
+              value: 0,
+              period: 0,
+              repeat: 0,
+              startTime: 0
+            },
+            {
+              value: 0,
+              period: 0,
+              repeat: 0,
+              startTime: 0
+            },
+            {
+              value: 0,
+              period: 0,
+              repeat: 0,
+              startTime: 0
+            },
+            {
+              value: 0,
+              period: 0,
+              repeat: 0,
+              startTime: 0
+            }
+          ]
+        },
+        tmpProcess: {
+          text: 'روند ۲',
+          value: 1,
+          immediate: [0, -1, -2, -3, -4, -5, -6, -7],
+          gradual: [
+            {
+              value: -1,
+              period: -2,
+              repeat: -3,
+              startTime: -4
+            },
+            {
+              value: 0,
+              period: 0,
+              repeat: 0,
+              startTime: 0
+            },
+            {
+              value: 0,
+              period: 0,
+              repeat: 0,
+              startTime: 0
+            },
+            {
+              value: 0,
+              period: 0,
+              repeat: 0,
+              startTime: 0
+            },
+            {
+              value: 0,
+              period: 0,
+              repeat: 0,
+              startTime: 0
+            },
+            {
+              value: 0,
+              period: 0,
+              repeat: 0,
+              startTime: 0
+            },
+            {
+              value: 0,
+              period: 0,
+              repeat: 0,
+              startTime: 0
+            },
+            {
+              value: 0,
+              period: 0,
+              repeat: 0,
+              startTime: 0
+            }
+          ]
+        },
+        indicatorName: '',
+        selectedProcess: -1,
+        selectedCountry: 0,
         update: false,
         dialog: false,
         addProcessDialog: true,
@@ -515,7 +643,20 @@
         this.dialog = !this.dialog
       },
       addProcess: function () {
+        this.tmpProcess = JSON.parse(JSON.stringify(this.defaultProcess))
         this.addProcessDialog = true
+      },
+      saveProcess: function () {
+        var newobj = JSON.parse(JSON.stringify(this.tmpProcess))
+        newobj.text = this.indicatorName
+        newobj.value = this.processes.length
+        this.processes.push(newobj)
+        this.addProcessDialog = false
+      }
+    },
+    watch: {
+      selectedProcess: function (val) {
+        this.tmpProcess = JSON.parse(JSON.stringify(this.processes[val]))
       }
     }
   }
