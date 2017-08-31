@@ -103,7 +103,6 @@
                                 name="input-1"
                                 label="نام شاخص جدید"
                                 v-model="indicatorName"
-                                id=""
                                 :disabled="!newIndicator || !saveIndicator"
                   ></v-text-field>
                   <v-layout row>
@@ -195,9 +194,9 @@
               </v-card-text>
               <v-card-actions light>
                 <v-spacer></v-spacer>
-                <v-btn class="blue--text darken-1" flat="flat" @click.native="saveProcess">ذخیره</v-btn>
-                <v-btn class="blue--text darken-1" flat="flat" @click.native="addProcessDialog = false">ذخیره و اعمال</v-btn>
-                <v-btn class="blue--text darken-1" flat="flat" @click.native="addProcessDialog = false">اعمال</v-btn>
+                <v-btn class="blue--text darken-1" flat="flat" @click.native="saveProcess" :disabled="!newIndicator || (newIndicator && !saveIndicator)">ذخیره</v-btn>
+                <v-btn class="blue--text darken-1" flat="flat" @click.native="addProcessDialog = false" :disabled="!newIndicator || (newIndicator && !saveIndicator)">ذخیره و اعمال</v-btn>
+                <v-btn class="blue--text darken-1" flat="flat" @click.native="addProcessDialog = false" :disabled="(newIndicator && saveIndicator)">اعمال</v-btn>
               </v-card-actions>
             </v-card>
         </v-dialog>
@@ -649,7 +648,7 @@
       saveProcess: function () {
         var newobj = JSON.parse(JSON.stringify(this.tmpProcess))
         if (this.indicatorName === '') {
-          this.$error('err')
+          this.$error('نام شاخص جدید را انتخاب نکرده اید')
           return
         }
         newobj.text = this.indicatorName
