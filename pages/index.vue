@@ -1,70 +1,14 @@
 <template>
   <v-app id="example-8" dark toolbar>
     <main>
-      <v-container fill-height>
-        <v-layout row wrap>
-          <v-flex xs3 ma-0>
-            <v-card light @click="showModal(0)" role="button">
-              <div class="alert success pa-1 elevation-9" dir="rtl">
-                <strong class="ampaas-text">کشور</strong>
+      <v-container fill-height dir="rtl">
+        <v-layout row wrap dir="rtl">
+          <v-flex xs3 ma-0 v-for="(item, i) in countries" dir="rtl">
+            <v-card light @click="showModal(i)" role="button">
+              <div class="alert pa-1 elevation-9" :class="{ 'red': countries[i].ampaas, 'success': !countries[i].ampaas }" dir="rtl">
+                <strong class="ampaas-text">{{item.name}}</strong>
               </div>
-              <bar-chart :chart-data="countries[0].chartData" :update="update[0]" :options="options"></bar-chart>
-            </v-card>
-          </v-flex>
-          <v-flex xs3>
-            <v-card light @click="showModal(1)" role="button">
-              <div class="alert success pa-1 elevation-9" dir="rtl">
-                <strong class="ampaas-text">کشور</strong>
-              </div>
-              <bar-chart :chart-data="countries[1].chartData" :update="update[1]" :options="options"></bar-chart>
-            </v-card>
-          </v-flex>
-          <v-flex xs3>
-            <v-card light @click="showModal(2)" role="button">
-              <div class="alert red pa-1 elevation-9" dir="rtl">
-                <strong class="ampaas-text">کشور</strong>
-              </div>
-              <bar-chart :chart-data="countries[2].chartData" :update="update[2]" :options="options"></bar-chart>
-            </v-card>
-          </v-flex>
-          <v-flex xs3>
-            <v-card light @click="showModal(3)" role="button">
-              <div class="alert success pa-1 elevation-9" dir="rtl">
-                <strong class="ampaas-text">کشور</strong>
-              </div>
-              <bar-chart :chart-data="countries[3].chartData" :update="update[3]" :options="options"></bar-chart>
-            </v-card>
-          </v-flex>
-          <v-flex xs3>
-            <v-card light @click="showModal(4)" role="button">
-              <div class="alert success pa-1 elevation-9" dir="rtl">
-                <strong class="ampaas-text">کشور</strong>
-              </div>
-              <bar-chart :chart-data="countries[4].chartData" :update="update[4]" :options="options"></bar-chart>
-            </v-card>
-          </v-flex>
-          <v-flex xs3>
-            <v-card light @click="showModal(5)" role="button">
-              <div class="alert success pa-1 elevation-9" dir="rtl">
-                <strong class="ampaas-text">کشور</strong>
-              </div>
-              <bar-chart :chart-data="countries[5].chartData" :update="update[5]" :options="options"></bar-chart>
-            </v-card>
-          </v-flex>
-          <v-flex xs3>
-            <v-card light @click="showModal(6)" role="button">
-              <div class="alert success pa-1 elevation-9" dir="rtl">
-                <strong class="ampaas-text">کشور</strong>
-              </div>
-              <bar-chart :chart-data="countries[6].chartData" :update="update[6]" :options="options"></bar-chart>
-            </v-card>
-          </v-flex>
-          <v-flex xs3>
-            <v-card light @click="showModal(7)" role="button">
-              <div class="alert success pa-1 elevation-9 border-0" dir="rtl">
-                <strong class="ampaas-text">کشور</strong>
-              </div>
-              <bar-chart :chart-data="countries[7].chartData" :update="update[7]" :options="options"></bar-chart>
+              <bar-chart :chart-data="countries[i].chartData" :update="update[i]" :options="options"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs12 mb-2>
@@ -105,7 +49,7 @@
                                 name="input-1"
                                 label="نام شاخص جدید"
                                 v-model="indicatorName"
-                                :disabled="!newIndicator || !saveIndicator"
+                                :disabled="!newIndicator"
                   ></v-text-field>
                   <v-layout row>
                     <v-flex>
@@ -214,6 +158,7 @@
                         <v-select
                           v-bind:items="countries[i].processes"
                           v-model="deleteProcess[i]"
+                          item-value="value"
                           label="روند ها"
                           single-line
                           bottom
@@ -234,10 +179,11 @@
                           v-bind:items="countries[4+i].processes"
                           v-model="deleteProcess[4+i]"
                           label="روند ها"
+                          item-value="value"
                           single-line
                           bottom
                         ></v-select>
-                        <v-btn fab dark small class="red" @click="deleteProcessFunc(i)">
+                        <v-btn fab dark small class="red" @click="deleteProcessFunc(4+i)">
                           <v-icon>block</v-icon>
                         </v-btn>
                       </v-card-text>
@@ -311,6 +257,7 @@
           {
             name: 'کشور ۱',
             text: 'کشور ۱',
+            ampaas: true,
             value: 0,
             chartData:
               {
@@ -329,6 +276,7 @@
             name: 'کشور ۲',
             text: 'کشور ۲',
             value: 1,
+            ampaas: true,
             chartData:
               {
                 labels: ['نظامی', 'اقتصادی', 'دیپلماسی', 'به-آموز', 'دادگستری', 'صنعت', 'عمران', 'رضایت'],
@@ -346,6 +294,7 @@
             name: 'کشور ۳',
             text: 'کشور ۳',
             value: 2,
+            ampaas: false,
             chartData:
               {
                 labels: ['نظامی', 'اقتصادی', 'دیپلماسی', 'به-آموز', 'دادگستری', 'صنعت', 'عمران', 'رضایت'],
@@ -363,6 +312,7 @@
             name: 'کشور ۴',
             text: 'کشور ۴',
             value: 3,
+            ampaas: false,
             chartData:
               {
                 labels: ['نظامی', 'اقتصادی', 'دیپلماسی', 'به-آموز', 'دادگستری', 'صنعت', 'عمران', 'رضایت'],
@@ -380,6 +330,7 @@
             name: 'کشور ۵',
             text: 'کشور ۵',
             value: 4,
+            ampaas: false,
             chartData:
               {
                 labels: ['نظامی', 'اقتصادی', 'دیپلماسی', 'به-آموز', 'دادگستری', 'صنعت', 'عمران', 'رضایت'],
@@ -397,6 +348,7 @@
             name: 'کشور ۶',
             text: 'کشور ۶',
             value: 5,
+            ampaas: false,
             chartData:
               {
                 labels: ['نظامی', 'اقتصادی', 'دیپلماسی', 'به-آموز', 'دادگستری', 'صنعت', 'عمران', 'رضایت'],
@@ -414,6 +366,7 @@
             name: 'کشور ۷',
             text: 'کشور ۷',
             value: 6,
+            ampaas: false,
             chartData:
               {
                 labels: ['نظامی', 'اقتصادی', 'دیپلماسی', 'به-آموز', 'دادگستری', 'صنعت', 'عمران', 'رضایت'],
@@ -431,6 +384,7 @@
             name: 'کشور ۸',
             text: 'کشور ۸',
             value: 7,
+            ampaas: false,
             chartData:
               {
                 labels: ['نظامی', 'اقتصادی', 'دیپلماسی', 'به-آموز', 'دادگستری', 'صنعت', 'عمران', 'رضایت'],
@@ -450,13 +404,13 @@
             text: 'روند ۱',
             value: 0,
             immediate: [0, 1, 2, 3, 4, 5, 6, 7],
-            period: 0,
+            period: 5,
             gradual: [
               {
                 value: 1,
                 repeat: 3,
-                value2: 22,
-                repeat2: 33
+                value2: 2,
+                repeat2: 3
               },
               {
                 value1: 0,
@@ -506,13 +460,13 @@
             text: 'روند ۲',
             value: 1,
             immediate: [0, -1, -2, -3, -4, -5, -6, -7],
-            period: 0,
+            period: 5,
             gradual: [
               {
                 value: -1,
-                repeat: -3,
+                repeat: 3,
                 value2: -2,
-                repeat2: -1
+                repeat2: 5
               },
               {
                 value1: 0,
@@ -678,7 +632,7 @@
         update: [{t: false}, {t: false}, {t: false}, {t: false}, {t: false}, {t: false}, {t: false}, {t: false}],
         dialog: false,
         addProcessDialog: false,
-        panelDialog: true,
+        panelDialog: false,
         modalChartData: null,
         updateModal: false,
         deleteProcess: [-1, -1, -1, -1, -1, -1, -1, -1]
@@ -694,7 +648,6 @@
         var newobj = this.update
         newobj.k = !newobj.k
         this.update = JSON.parse(JSON.stringify(newobj))
-        console.log(this.$children)
       },
       showModal: function (x) {
         this.modalChartData = this.countries[x].chartData
@@ -750,7 +703,7 @@
             if (values[i].repeat1 > 0) {
               that.countries[index].chartData.datasets[0].data[i] += parseInt(values[i].value1)
               values[i].repeat1 -= 1
-              console.log(that.countries[index].chartData.datasets[0].data[i])
+              // console.log(that.countries[index].chartData.datasets[0].data[i])
               if (that.countries[index].chartData.datasets[0].data[i] >= 100) {
                 that.countries[index].chartData.datasets[0].data[i] = 100
                 values[i].repeat1 = 0
@@ -779,14 +732,25 @@
           if (ended === 8) {
             // console.log(ended, 'clear interval')
             console.log(that.countries[index].processes)
-            var a = that.countries[index].processes.indexOf(polling)
+            var a
+            for (i = 0; i < that.countries[index].processes.length; i++) {
+              if (that.countries[index].processes[i].value === polling) {
+                a = i
+                break
+              }
+            }
+            // var a = that.countries[index].processes.indexOf(polling)
             that.countries[index].processes.splice(a, 1)
-            console.log(that.countries[index].processes)
+            // console.log(that.countries[index].processes)
             clearInterval(polling)
           }
         }, that.tmpProcess.period * 1000)
         this.$success('hey!')
-        this.countries[this.selectedCountry].processes.push(polling)
+        if (!this.newIndicator) {
+          this.countries[this.selectedCountry].processes.push({text: this.processes[this.selectedProcess].text, value: polling})
+        } else {
+          this.countries[this.selectedCountry].processes.push({text: this.indicatorName, value: polling})
+        }
         this.addProcessDialog = false
       },
       updateChart: function (index) {
@@ -795,9 +759,17 @@
         this.$set(this.update, index, JSON.parse(JSON.stringify(obj)))
       },
       deleteProcessFunc: function (index) {
-        var a = this.countries[index].processes.indexOf(this.deleteProcess[index])
-        // console.log(this.countries[index].processes[a])
-        clearInterval(this.countries[index].processes[a])
+        var a
+        console.log(this.deleteProcess[index])
+        for (var i = 0; i < this.countries[index].processes.length; i++) {
+          if (this.countries[index].processes[i].value === this.deleteProcess[index]) {
+            a = i
+            break
+          }
+        }
+        console.log(this.countries[index].processes[a])
+        // var a = this.countries[index].processes.indexOf(this.deleteProcess[index])
+        clearInterval(this.countries[index].processes[a].value)
         this.countries[index].processes.splice(a, 1)
       },
       kill: function () {
