@@ -6,9 +6,9 @@
           <v-flex xs3 ma-0>
             <v-card light @click="showModal(0)" role="button">
               <div class="alert success pa-1 elevation-9" dir="rtl">
-                <strong class="ampaas-text">کشور{{update}}</strong>
+                <strong class="ampaas-text">کشور</strong>
               </div>
-              <bar-chart :chart-data="countries[0].chartData" :update="update" :options="options"></bar-chart>
+              <bar-chart :chart-data="countries[0].chartData" :update="update[0]" :options="options"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs3>
@@ -16,7 +16,7 @@
               <div class="alert success pa-1 elevation-9" dir="rtl">
                 <strong class="ampaas-text">کشور</strong>
               </div>
-              <bar-chart :chart-data="countries[1].chartData" :options="options"></bar-chart>
+              <bar-chart :chart-data="countries[1].chartData" :update="update[1]" :options="options"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs3>
@@ -24,7 +24,7 @@
               <div class="alert red pa-1 elevation-9" dir="rtl">
                 <strong class="ampaas-text">کشور</strong>
               </div>
-              <bar-chart :chart-data="countries[2].chartData" :options="options"></bar-chart>
+              <bar-chart :chart-data="countries[2].chartData" :update="update[2]" :options="options"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs3>
@@ -32,7 +32,7 @@
               <div class="alert success pa-1 elevation-9" dir="rtl">
                 <strong class="ampaas-text">کشور</strong>
               </div>
-              <bar-chart :chart-data="countries[3].chartData" :options="options"></bar-chart>
+              <bar-chart :chart-data="countries[3].chartData" :update="update[3]" :options="options"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs3>
@@ -40,7 +40,7 @@
               <div class="alert success pa-1 elevation-9" dir="rtl">
                 <strong class="ampaas-text">کشور</strong>
               </div>
-              <bar-chart :chart-data="countries[4].chartData" :options="options"></bar-chart>
+              <bar-chart :chart-data="countries[4].chartData" :update="update[4]" :options="options"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs3>
@@ -48,7 +48,7 @@
               <div class="alert success pa-1 elevation-9" dir="rtl">
                 <strong class="ampaas-text">کشور</strong>
               </div>
-              <bar-chart :chart-data="countries[5].chartData" :options="options"></bar-chart>
+              <bar-chart :chart-data="countries[5].chartData" :update="update[5]" :options="options"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs3>
@@ -56,7 +56,7 @@
               <div class="alert success pa-1 elevation-9" dir="rtl">
                 <strong class="ampaas-text">کشور</strong>
               </div>
-              <bar-chart :chart-data="countries[6].chartData" :options="options"></bar-chart>
+              <bar-chart :chart-data="countries[6].chartData" :update="update[6]" :options="options"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs3>
@@ -64,7 +64,7 @@
               <div class="alert success pa-1 elevation-9 border-0" dir="rtl">
                 <strong class="ampaas-text">کشور</strong>
               </div>
-              <bar-chart :chart-data="countries[7].chartData" :options="options"></bar-chart>
+              <bar-chart :chart-data="countries[7].chartData" :update="update[7]" :options="options"></bar-chart>
             </v-card>
           </v-flex>
           <v-flex xs12 mb-2>
@@ -157,6 +157,9 @@
                       <div slot="header">تغییر تدریجی</div>
                       <v-card>
                         <v-card-text class="">
+                          <v-flex xs3>
+                            <v-text-field :disabled="!newIndicator" dir="ltr" label="دوره زمانی" v-model="tmpProcess.period" type="number"></v-text-field>
+                          </v-flex>
                           <v-expansion-panel>
                             <v-expansion-panel-content v-for="(item,i) in indicatorNames" :key="i">
                               <div slot="header">{{item}}</div>
@@ -164,20 +167,17 @@
                                 <v-card-text class="">
                                   <v-container fluid>
                                     <v-layout row>
-                                      <v-flex xs2>
-                                        <v-text-field :disabled="!newIndicator" dir="ltr" label="زمان شروع" v-model="tmpProcess.gradual[i].startTime" type="number"></v-text-field>
+                                      <v-flex xs3>
+                                        <v-text-field :disabled="!newIndicator" dir="ltr" label="تکرار ۲" v-model="tmpProcess.gradual[i].repeat2" type="number"></v-text-field>
                                       </v-flex>
-                                      <v-flex xs2>
-                                        <v-text-field :disabled="!newIndicator" dir="ltr" label="دوره زمانی" v-model="tmpProcess.gradual[i].period" type="number"></v-text-field>
+                                      <v-flex xs3>
+                                        <v-text-field :disabled="!newIndicator" dir="ltr" label="مقدار ۲" v-model="tmpProcess.gradual[i].value2" type="number"></v-text-field>
                                       </v-flex>
-                                      <v-flex xs2>
-                                        <v-text-field :disabled="!newIndicator" dir="ltr" label="تکرار" v-model="tmpProcess.gradual[i].repeat" type="number"></v-text-field>
+                                      <v-flex xs3>
+                                        <v-text-field :disabled="!newIndicator" dir="ltr" label="تکرار ۱" v-model="tmpProcess.gradual[i].repeat1" type="number"></v-text-field>
                                       </v-flex>
-                                      <v-flex xs2>
-                                        <v-text-field :disabled="!newIndicator" dir="ltr" v-model="tmpProcess.gradual[i].value" type="number"></v-text-field>
-                                      </v-flex>
-                                      <v-flex xs4>
-                                        <v-slider :disabled="!newIndicator" v-model="tmpProcess.gradual[i].value" :step="1" :min="-100" :max="100" snap thumb-label dark></v-slider>
+                                      <v-flex xs3>
+                                        <v-text-field :disabled="!newIndicator" dir="ltr" label="مقدار ۱" v-model="tmpProcess.gradual[i].value1" type="number"></v-text-field>
                                       </v-flex>
                                     </v-layout>
                                   </v-container>
@@ -266,7 +266,7 @@
                 datasets: [
                   {
                     label: 'گروه ۱',
-                    backgroundColor: 'red',
+                    backgroundColor: 'grey',
                     data: [1, 2, 3, 4, 5, 6, 10, 20]
                   }
                 ]
@@ -283,8 +283,8 @@
                 datasets: [
                   {
                     label: 'گروه ۲',
-                    backgroundColor: 'red',
-                    data: [1, 2, 3, 4, 5, 6, 10, 20]
+                    backgroundColor: 'blue',
+                    data: [0, 0, 0, 0, 0, 0, 0, 0]
                   }
                 ]
               },
@@ -300,7 +300,7 @@
                 datasets: [
                   {
                     label: 'گروه ۳',
-                    backgroundColor: 'red',
+                    backgroundColor: 'pink',
                     data: [1, 2, 3, 4, 5, 6, 10, 20]
                   }
                 ]
@@ -334,7 +334,7 @@
                 datasets: [
                   {
                     label: 'گروه ۵',
-                    backgroundColor: 'red',
+                    backgroundColor: 'lightgreen',
                     data: [1, 2, 3, 4, 5, 6, 10, 20]
                   }
                 ]
@@ -351,7 +351,7 @@
                 datasets: [
                   {
                     label: 'گروه ۶',
-                    backgroundColor: 'red',
+                    backgroundColor: 'green',
                     data: [1, 2, 3, 4, 5, 6, 10, 20]
                   }
                 ]
@@ -368,7 +368,7 @@
                 datasets: [
                   {
                     label: 'گروه ۷',
-                    backgroundColor: 'red',
+                    backgroundColor: 'yellow',
                     data: [1, 2, 3, 4, 5, 6, 10, 20]
                   }
                 ]
@@ -385,7 +385,7 @@
                 datasets: [
                   {
                     label: 'گروه ۸',
-                    backgroundColor: 'red',
+                    backgroundColor: 'orange',
                     data: [1, 2, 3, 4, 5, 6, 10, 20]
                   }
                 ]
@@ -398,54 +398,55 @@
             text: 'روند ۱',
             value: 0,
             immediate: [0, 1, 2, 3, 4, 5, 6, 7],
+            period: 0,
             gradual: [
               {
                 value: 1,
-                period: 2,
                 repeat: 3,
-                startTime: 4
+                value2: 22,
+                repeat2: 33
               },
               {
-                value: 0,
-                period: 0,
-                repeat: 0,
-                startTime: 0
+                value1: 0,
+                repeat1: 0,
+                value2: 0,
+                repeat2: 0
               },
               {
-                value: 0,
-                period: 0,
-                repeat: 0,
-                startTime: 0
+                value1: 0,
+                repeat1: 0,
+                value2: 0,
+                repeat2: 0
               },
               {
-                value: 0,
-                period: 0,
-                repeat: 0,
-                startTime: 0
+                value1: 0,
+                repeat1: 0,
+                value2: 0,
+                repeat2: 0
               },
               {
-                value: 0,
-                period: 0,
-                repeat: 0,
-                startTime: 0
+                value1: 0,
+                repeat1: 0,
+                value2: 0,
+                repeat2: 0
               },
               {
-                value: 0,
-                period: 0,
-                repeat: 0,
-                startTime: 0
+                value1: 0,
+                repeat1: 0,
+                value2: 0,
+                repeat2: 0
               },
               {
-                value: 0,
-                period: 0,
-                repeat: 0,
-                startTime: 0
+                value1: 0,
+                repeat1: 0,
+                value2: 0,
+                repeat2: 0
               },
               {
-                value: 0,
-                period: 0,
-                repeat: 0,
-                startTime: 0
+                value1: 0,
+                repeat1: 0,
+                value2: 0,
+                repeat2: 0
               }
             ]
           },
@@ -453,54 +454,55 @@
             text: 'روند ۲',
             value: 1,
             immediate: [0, -1, -2, -3, -4, -5, -6, -7],
+            period: 0,
             gradual: [
               {
                 value: -1,
-                period: -2,
                 repeat: -3,
-                startTime: -4
+                value2: -2,
+                repeat2: -1
               },
               {
-                value: 0,
-                period: 0,
-                repeat: 0,
-                startTime: 0
+                value1: 0,
+                repeat1: 0,
+                value2: 0,
+                repeat2: 0
               },
               {
-                value: 0,
-                period: 0,
-                repeat: 0,
-                startTime: 0
+                value1: 0,
+                repeat1: 0,
+                value2: 0,
+                repeat2: 0
               },
               {
-                value: 0,
-                period: 0,
-                repeat: 0,
-                startTime: 0
+                value1: 0,
+                repeat1: 0,
+                value2: 0,
+                repeat2: 0
               },
               {
-                value: 0,
-                period: 0,
-                repeat: 0,
-                startTime: 0
+                value1: 0,
+                repeat1: 0,
+                value2: 0,
+                repeat2: 0
               },
               {
-                value: 0,
-                period: 0,
-                repeat: 0,
-                startTime: 0
+                value1: 0,
+                repeat1: 0,
+                value2: 0,
+                repeat2: 0
               },
               {
-                value: 0,
-                period: 0,
-                repeat: 0,
-                startTime: 0
+                value1: 0,
+                repeat1: 0,
+                value2: 0,
+                repeat2: 0
               },
               {
-                value: 0,
-                period: 0,
-                repeat: 0,
-                startTime: 0
+                value1: 0,
+                repeat1: 0,
+                value2: 0,
+                repeat2: 0
               }
             ]
           }
@@ -509,109 +511,111 @@
           text: 'دیفالت',
           value: -1,
           immediate: [0, 0, 0, 0, 0, 0, 0, 0],
+          period: 0,
           gradual: [
             {
-              value: 0,
-              period: 0,
-              repeat: 0,
-              startTime: 0
+              value1: 0,
+              repeat1: 0,
+              value2: 0,
+              repeat2: 0
             },
             {
-              value: 0,
-              period: 0,
-              repeat: 0,
-              startTime: 0
+              value1: 0,
+              repeat1: 0,
+              value2: 0,
+              repeat2: 0
             },
             {
-              value: 0,
-              period: 0,
-              repeat: 0,
-              startTime: 0
+              value1: 0,
+              repeat1: 0,
+              value2: 0,
+              repeat2: 0
             },
             {
-              value: 0,
-              period: 0,
-              repeat: 0,
-              startTime: 0
+              value1: 0,
+              repeat1: 0,
+              value2: 0,
+              repeat2: 0
             },
             {
-              value: 0,
-              period: 0,
-              repeat: 0,
-              startTime: 0
+              value1: 0,
+              repeat1: 0,
+              value2: 0,
+              repeat2: 0
             },
             {
-              value: 0,
-              period: 0,
-              repeat: 0,
-              startTime: 0
+              value1: 0,
+              repeat1: 0,
+              value2: 0,
+              repeat2: 0
             },
             {
-              value: 0,
-              period: 0,
-              repeat: 0,
-              startTime: 0
+              value1: 0,
+              repeat1: 0,
+              value2: 0,
+              repeat2: 0
             },
             {
-              value: 0,
-              period: 0,
-              repeat: 0,
-              startTime: 0
+              value1: 0,
+              repeat1: 0,
+              value2: 0,
+              repeat2: 0
             }
           ]
         },
         tmpProcess: {
           text: 'روند ۲',
           value: 1,
-          immediate: [0, -1, -2, -3, -4, -5, -6, -7],
+          immediate: [0, 0, 0, 0, 0, 0, 0, 0],
+          period: 0,
           gradual: [
             {
-              value: -1,
-              period: -2,
-              repeat: -3,
-              startTime: -4
+              value1: -0,
+              repeat1: 0,
+              value2: 0,
+              repeat2: 0
             },
             {
-              value: 0,
-              period: 0,
-              repeat: 0,
-              startTime: 0
+              value1: 0,
+              repeat1: 0,
+              value2: 0,
+              repeat2: 0
             },
             {
-              value: 0,
-              period: 0,
-              repeat: 0,
-              startTime: 0
+              value1: 0,
+              repeat1: 0,
+              value2: 0,
+              repeat2: 0
             },
             {
-              value: 0,
-              period: 0,
-              repeat: 0,
-              startTime: 0
+              value1: 0,
+              repeat1: 0,
+              value2: 0,
+              repeat2: 0
             },
             {
-              value: 0,
-              period: 0,
-              repeat: 0,
-              startTime: 0
+              value1: 0,
+              repeat1: 0,
+              value2: 0,
+              repeat2: 0
             },
             {
-              value: 0,
-              period: 0,
-              repeat: 0,
-              startTime: 0
+              value1: 0,
+              repeat1: 0,
+              value2: 0,
+              repeat2: 0
             },
             {
-              value: 0,
-              period: 0,
-              repeat: 0,
-              startTime: 0
+              value1: 0,
+              repeat1: 0,
+              value2: 0,
+              repeat2: 0
             },
             {
-              value: 0,
-              period: 0,
-              repeat: 0,
-              startTime: 0
+              value1: 0,
+              repeat1: 0,
+              value2: 0,
+              repeat2: 0
             }
           ]
         },
@@ -619,7 +623,7 @@
         selectedProcess: -1,
         selectedCountry: 0,
         polling: null,
-        update: false,
+        update: [{t: false}, {t: false}, {t: false}, {t: false}, {t: false}, {t: false}, {t: false}, {t: false}],
         dialog: false,
         addProcessDialog: true,
         modalChartData: null,
@@ -663,17 +667,48 @@
       },
       runProcess: function () {
         const that = this
-
-        this.polling = setInterval(function () {
-          if (that.countries[0].chartData.datasets[0].data[0] > 50) {
-            console.log('end')
-            that.kill()
+        for (var i = 0; i < 8; i++) {
+          that.countries[that.selectedCountry].chartData.datasets[0].data[i] += that.tmpProcess.immediate[i]
+        }
+        this.updateChart(this.selectedCountry)
+        const values = that.tmpProcess.gradual
+        const index = that.selectedCountry
+        var polling = setInterval(function () {
+          console.log(values)
+          // gradual changes
+          var ended = 0
+          for (var i = 0; i < 8; i++) {
+            if (values[i].repeat1 > 0) {
+              that.countries[index].chartData.datasets[0].data[i] += parseInt(values[i].value1)
+              values[i].repeat1 -= 1
+              console.log('repeat 1', values[i].value1)
+            } else if (values[i].repeat2 > 0) {
+              that.countries[index].chartData.datasets[0].data[i] += parseInt(values[i].value2)
+              values[i].repeat2 -= 1
+              console.log('repeat 2', values[i].value2)
+            } else {
+              ended += 1
+            }
           }
-          that.countries[0].chartData.datasets[0].data[0] += 3
-          that.update = !that.update
-        }, 3000)
+          that.updateChart(index)
+
+          if (ended === 8) {
+            /*
+            console.log('clear interval')
+            var a = that.countries[index].processes.findIndex(this)
+            that.countries[index].processes.splice(a, 1)
+            clearInterval(this)
+            */
+          }
+        }, that.tmpProcess.period * 60 * 1000)
         this.$success('hey!')
+        this.countries[this.selectedCountry].processes.push(polling)
         this.addProcessDialog = false
+      },
+      updateChart: function (index) {
+        var obj = this.update[index]
+        obj.t = !obj.t
+        this.$set(this.update, index, JSON.parse(JSON.stringify(obj)))
       },
       kill: function () {
         clearInterval(this.polling)
