@@ -218,6 +218,9 @@
                           single-line
                           bottom
                         ></v-select>
+                        <v-btn fab dark small class="red" @click="deleteProcessFunc(i)">
+                          <v-icon>block</v-icon>
+                        </v-btn>
                       </v-card-text>
                     </v-card>
                   </v-flex>
@@ -234,6 +237,9 @@
                           single-line
                           bottom
                         ></v-select>
+                        <v-btn fab dark small class="red" @click="deleteProcessFunc(i)">
+                          <v-icon>block</v-icon>
+                        </v-btn>
                       </v-card-text>
                     </v-card>
                   </v-flex>
@@ -787,6 +793,12 @@
         var obj = this.update[index]
         obj.t = !obj.t
         this.$set(this.update, index, JSON.parse(JSON.stringify(obj)))
+      },
+      deleteProcessFunc: function (index) {
+        var a = this.countries[index].processes.indexOf(this.deleteProcess[index])
+        // console.log(this.countries[index].processes[a])
+        clearInterval(this.countries[index].processes[a])
+        this.countries[index].processes.splice(a, 1)
       },
       kill: function () {
         clearInterval(this.polling)
