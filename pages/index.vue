@@ -195,7 +195,7 @@
               <v-card-actions light>
                 <v-spacer></v-spacer>
                 <v-btn class="blue--text darken-1" flat="flat" @click.native="saveProcess" :disabled="!newIndicator || (newIndicator && !saveIndicator)">ذخیره</v-btn>
-                <v-btn class="blue--text darken-1" flat="flat" @click.native="addProcessDialog = false" :disabled="!newIndicator || (newIndicator && !saveIndicator)">ذخیره و اعمال</v-btn>
+                <v-btn class="blue--text darken-1" flat="flat" @click.native="runAndSaveProcess" :disabled="!newIndicator || (newIndicator && !saveIndicator)">ذخیره و اعمال</v-btn>
                 <v-btn class="blue--text darken-1" flat="flat" @click.native="runProcess" :disabled="(newIndicator && saveIndicator)">اعمال</v-btn>
               </v-card-actions>
             </v-card>
@@ -665,6 +665,17 @@
         this.processes.push(newobj)
         this.addProcessDialog = false
       },
+      runAndSaveProcess: function () {
+        var newobj = JSON.parse(JSON.stringify(this.tmpProcess))
+        if (this.indicatorName === '') {
+          this.$error('نام شاخص جدید را انتخاب نکرده اید')
+          return
+        }
+        newobj.text = this.indicatorName
+        newobj.value = this.processes.length
+        this.processes.push(newobj)
+        this.runProcess()
+      },
       runProcess: function () {
         const that = this
         for (var i = 0; i < 8; i++) {
@@ -674,18 +685,17 @@
         const values = that.tmpProcess.gradual
         const index = that.selectedCountry
         var polling = setInterval(function () {
-          console.log(values)
           // gradual changes
           var ended = 0
           for (var i = 0; i < 8; i++) {
             if (values[i].repeat1 > 0) {
               that.countries[index].chartData.datasets[0].data[i] += parseInt(values[i].value1)
               values[i].repeat1 -= 1
-              console.log('repeat 1', values[i].value1)
+              // console.log('repeat 1', values[i].value1)
             } else if (values[i].repeat2 > 0) {
               that.countries[index].chartData.datasets[0].data[i] += parseInt(values[i].value2)
               values[i].repeat2 -= 1
-              console.log('repeat 2', values[i].value2)
+              // console.log('repeat 2', values[i].value2)
             } else {
               ended += 1
             }
@@ -693,14 +703,12 @@
           that.updateChart(index)
 
           if (ended === 8) {
-            /*
-            console.log('clear interval')
-            var a = that.countries[index].processes.findIndex(this)
+            // console.log(ended, 'clear interval')
+            var a = that.countries[index].processes.indexOf(polling)
             that.countries[index].processes.splice(a, 1)
-            clearInterval(this)
-            */
+            clearInterval(polling)
           }
-        }, that.tmpProcess.period * 60 * 1000)
+        }, that.tmpProcess.period * 1000)
         this.$success('hey!')
         this.countries[this.selectedCountry].processes.push(polling)
         this.addProcessDialog = false
