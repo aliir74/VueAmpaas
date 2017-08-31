@@ -108,13 +108,14 @@
                   <v-layout row>
                     <v-flex>
                       <v-select
-                        v-bind:items="indicatorList"
-                        v-model="selectedGroup"
-                        label="شاخص ها"
+                        v-bind:items="processes"
+                        v-model="selectedProcess"
+                        label="روند ها"
                         dark
-                        item-value="text"
+                        item-value="value"
                         :disabled="newIndicator"
                       ></v-select>
+                      {{selectedProcess}}
                     </v-flex>
                     <v-flex>
                       <v-select
@@ -139,10 +140,10 @@
                                   <v-container fluid>
                                     <v-layout row>
                                       <v-flex xs2>
-                                        <v-text-field dir="ltr" v-model="testValue" type="number" :disabled="!newIndicator"></v-text-field>
+                                        <v-text-field dir="ltr" v-model="processes[selectedProcess].immediate[i]" type="number" :disabled="!newIndicator"></v-text-field>
                                       </v-flex>
                                       <v-flex xs10>
-                                        <v-slider v-model="testValue" :step="1" :min="-100" :max="100" :disabled="!newIndicator" snap thumb-label dark></v-slider>
+                                        <v-slider v-model="processes[selectedProcess].immediate[i]" :step="1" :min="-100" :max="100" :disabled="!newIndicator" snap thumb-label dark></v-slider>
                                       </v-flex>
                                     </v-layout>
                                   </v-container>
@@ -165,19 +166,19 @@
                                   <v-container fluid>
                                     <v-layout row>
                                       <v-flex xs2>
-                                        <v-text-field :disabled="!newIndicator" dir="ltr" label="زمان شروع" v-model="testValue" type="number"></v-text-field>
+                                        <v-text-field :disabled="!newIndicator" dir="ltr" label="زمان شروع" v-model="processes[selectedProcess].gradual[i].startTime" type="number"></v-text-field>
                                       </v-flex>
                                       <v-flex xs2>
-                                        <v-text-field :disabled="!newIndicator" dir="ltr" label="دوره زمانی" v-model="testValue" type="number"></v-text-field>
+                                        <v-text-field :disabled="!newIndicator" dir="ltr" label="دوره زمانی" v-model="processes[selectedProcess].gradual[i].period" type="number"></v-text-field>
                                       </v-flex>
                                       <v-flex xs2>
-                                        <v-text-field :disabled="!newIndicator" dir="ltr" label="تکرار" v-model="testValue" type="number"></v-text-field>
+                                        <v-text-field :disabled="!newIndicator" dir="ltr" label="تکرار" v-model="processes[selectedProcess].gradual[i].repeat" type="number"></v-text-field>
                                       </v-flex>
                                       <v-flex xs2>
-                                        <v-text-field :disabled="!newIndicator" dir="ltr" v-model="testValue" type="number"></v-text-field>
+                                        <v-text-field :disabled="!newIndicator" dir="ltr" v-model="processes[selectedProcess].gradual[i].value" type="number"></v-text-field>
                                       </v-flex>
                                       <v-flex xs4>
-                                        <v-slider :disabled="!newIndicator" v-model="testValue" :step="1" :min="-100" :max="100" snap thumb-label dark></v-slider>
+                                        <v-slider :disabled="!newIndicator" v-model="processes[selectedProcess].gradual[i].value" :step="1" :min="-100" :max="100" snap thumb-label dark></v-slider>
                                       </v-flex>
                                     </v-layout>
                                   </v-container>
@@ -381,14 +382,70 @@
         ],
         processes: [
           {
-            name: 'روند ۱',
-            immediate: [0, 0, 0, 0, 0, 0, 0, 0],
+            text: 'روند ۱',
+            value: 0,
+            immediate: [0, 1, 2, 3, 4, 5, 6, 7],
             gradual: [
+              {
+                value: 1,
+                period: 2,
+                repeat: 3,
+                startTime: 4
+              },
               {
                 value: 0,
                 period: 0,
                 repeat: 0,
                 startTime: 0
+              },
+              {
+                value: 0,
+                period: 0,
+                repeat: 0,
+                startTime: 0
+              },
+              {
+                value: 0,
+                period: 0,
+                repeat: 0,
+                startTime: 0
+              },
+              {
+                value: 0,
+                period: 0,
+                repeat: 0,
+                startTime: 0
+              },
+              {
+                value: 0,
+                period: 0,
+                repeat: 0,
+                startTime: 0
+              },
+              {
+                value: 0,
+                period: 0,
+                repeat: 0,
+                startTime: 0
+              },
+              {
+                value: 0,
+                period: 0,
+                repeat: 0,
+                startTime: 0
+              }
+            ]
+          },
+          {
+            text: 'روند ۲',
+            value: 1,
+            immediate: [0, -1, -2, -3, -4, -5, -6, -7],
+            gradual: [
+              {
+                value: -1,
+                period: -2,
+                repeat: -3,
+                startTime: -4
               },
               {
                 value: 0,
@@ -435,6 +492,7 @@
             ]
           }
         ],
+        selectedProcess: 0,
         update: false,
         dialog: false,
         addProcessDialog: true,
