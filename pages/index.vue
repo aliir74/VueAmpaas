@@ -6,7 +6,7 @@
           <v-flex xs3 ma-0>
             <v-card light @click="showModal(0)" role="button">
               <div class="alert success pa-1 elevation-9" dir="rtl">
-                <strong class="ampaas-text">کشور</strong>
+                <strong class="ampaas-text">کشور{{update}}</strong>
               </div>
               <bar-chart :chart-data="groups[0]" :update="update" :options="options"></bar-chart>
             </v-card>
@@ -196,7 +196,7 @@
                 <v-spacer></v-spacer>
                 <v-btn class="blue--text darken-1" flat="flat" @click.native="saveProcess" :disabled="!newIndicator || (newIndicator && !saveIndicator)">ذخیره</v-btn>
                 <v-btn class="blue--text darken-1" flat="flat" @click.native="addProcessDialog = false" :disabled="!newIndicator || (newIndicator && !saveIndicator)">ذخیره و اعمال</v-btn>
-                <v-btn class="blue--text darken-1" flat="flat" @click.native="addProcessDialog = false" :disabled="(newIndicator && saveIndicator)">اعمال</v-btn>
+                <v-btn class="blue--text darken-1" flat="flat" @click.native="runProcess" :disabled="(newIndicator && saveIndicator)">اعمال</v-btn>
               </v-card-actions>
             </v-card>
         </v-dialog>
@@ -620,6 +620,7 @@
         indicatorName: '',
         selectedProcess: -1,
         selectedCountry: 0,
+        polling: null,
         update: false,
         dialog: false,
         addProcessDialog: true,
@@ -633,7 +634,10 @@
     methods: {
       testFunc: function () {
         this.groups[0].datasets[0].data[0] += 10
-        this.update = !this.update
+        // this.update = !this.update
+        var newobj = this.update
+        newobj.k = !newobj.k
+        this.update = JSON.parse(JSON.stringify(newobj))
         console.log(this.$children)
       },
       showModal: function (x) {
@@ -658,6 +662,23 @@
         newobj.value = this.processes.length
         this.processes.push(newobj)
         this.addProcessDialog = false
+      },
+      runProcess: function () {
+        const that = this
+        this.polling = setInterval(function () {
+          if (that.groups[0].datasets[0].data[0] > 50) {
+            console.log('end')
+            that.kill()
+          }
+          that.groups[0].datasets[0].data[0] += 3
+          that.update = !that.update
+        }, 3000)
+        this.$success('hey!')
+        this.addProcessDialog = false
+        console.log(this.addProcessDialog)
+      },
+      kill: function () {
+        clearInterval(this.polling)
       }
     },
     watch: {

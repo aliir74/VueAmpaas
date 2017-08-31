@@ -203,6 +203,10 @@ async-each@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/async-each/-/async-each-1.0.1.tgz#19d386a1d9edc6e7c1c85d388aedbcc56d33602d"
 
+async-polling@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/async-polling/-/async-polling-0.2.1.tgz#366175d72dda951fb1c148d0d9edf7412cb02d78"
+
 async@^2.1.2, async@^2.4.1:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/async/-/async-2.5.0.tgz#843190fd6b7357a0b9e1c956edddd5ec8462b54d"
