@@ -146,7 +146,7 @@
               </v-card-actions>
             </v-card>
         </v-dialog>
-        <v-dialog v-model="panelDialog" persistent width="450px" dir="rtl">
+        <v-dialog v-model="panelDialog" persistent width="950px" dir="rtl">
           <v-card dark>
             <v-card-text dir="rtl">
               <v-container>
@@ -155,6 +155,7 @@
                     <v-card>
                       <v-card-text>
                         {{countries[i].name}}
+                        <v-checkbox v-bind:label="'آمپاس!!!'" v-model="countries[i].ampaas" dark></v-checkbox>
                         <v-select
                           v-bind:items="countries[i].processes"
                           v-model="deleteProcess[i]"
@@ -175,6 +176,7 @@
                     <v-card>
                       <v-card-text>
                         {{countries[4+i].name}}
+                        <v-checkbox v-bind:label="'آمپاس!!!'" v-model="countries[4+i].ampaas" dark></v-checkbox>
                         <v-select
                           v-bind:items="countries[4+i].processes"
                           v-model="deleteProcess[4+i]"
@@ -825,5 +827,9 @@
   .expansion-panel__header {
     padding-left: 0px !important;
     padding-right: 1rem;
+  }
+
+  .checkbox label {
+    right: 8px;
   }
 </style>
