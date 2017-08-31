@@ -223,8 +223,8 @@
               },
               display: true,
               ticks: {
-                suggestedMin: 0,
-                suggestedMax: 100
+                min: 0,
+                max: 100
               }
             }]
           }
@@ -241,8 +241,8 @@
               },
               display: true,
               ticks: {
-                suggestedMin: 0,
-                suggestedMax: 100
+                min: 0,
+                max: 100
               }
             }]
           }
@@ -511,7 +511,7 @@
           text: 'دیفالت',
           value: -1,
           immediate: [0, 0, 0, 0, 0, 0, 0, 0],
-          period: 0,
+          period: 5,
           gradual: [
             {
               value1: 0,
@@ -567,7 +567,7 @@
           text: 'روند ۲',
           value: 1,
           immediate: [0, 0, 0, 0, 0, 0, 0, 0],
-          period: 0,
+          period: 5,
           gradual: [
             {
               value1: -0,
@@ -680,6 +680,11 @@
         const that = this
         for (var i = 0; i < 8; i++) {
           that.countries[that.selectedCountry].chartData.datasets[0].data[i] += that.tmpProcess.immediate[i]
+          if (that.countries[that.selectedCountry].chartData.datasets[0].data[i] > 100) {
+            that.countries[that.selectedCountry].chartData.datasets[0].data[i] = 100
+          } else if (that.countries[that.selectedCountry].chartData.datasets[0].data[i] < 0) {
+            that.countries[that.selectedCountry].chartData.datasets[0].data[i] = 0
+          }
         }
         this.updateChart(this.selectedCountry)
         const values = that.tmpProcess.gradual
@@ -691,11 +696,26 @@
             if (values[i].repeat1 > 0) {
               that.countries[index].chartData.datasets[0].data[i] += parseInt(values[i].value1)
               values[i].repeat1 -= 1
-              // console.log('repeat 1', values[i].value1)
+              console.log(that.countries[index].chartData.datasets[0].data[i])
+              if (that.countries[index].chartData.datasets[0].data[i] >= 100) {
+                that.countries[index].chartData.datasets[0].data[i] = 100
+                values[i].repeat1 = 0
+              }
+              if (that.countries[index].chartData.datasets[0].data[i] <= 0) {
+                that.countries[index].chartData.datasets[0].data[i] = 0
+                values[i].repeat1 = 0
+              }
             } else if (values[i].repeat2 > 0) {
               that.countries[index].chartData.datasets[0].data[i] += parseInt(values[i].value2)
               values[i].repeat2 -= 1
-              // console.log('repeat 2', values[i].value2)
+              if (that.countries[index].chartData.datasets[0].data[i] >= 100) {
+                that.countries[index].chartData.datasets[0].data[i] = 100
+                values[i].repeat2 = 0
+              }
+              if (that.countries[index].chartData.datasets[0].data[i] <= 0) {
+                that.countries[index].chartData.datasets[0].data[i] = 0
+                values[i].repeat2 = 0
+              }
             } else {
               ended += 1
             }
@@ -704,8 +724,10 @@
 
           if (ended === 8) {
             // console.log(ended, 'clear interval')
+            console.log(that.countries[index].processes)
             var a = that.countries[index].processes.indexOf(polling)
             that.countries[index].processes.splice(a, 1)
+            console.log(that.countries[index].processes)
             clearInterval(polling)
           }
         }, that.tmpProcess.period * 1000)
