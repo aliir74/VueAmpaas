@@ -1,7 +1,6 @@
 <template>
   <v-app id="example-8" dark toolbar>
     <main>
-      {{countries[1].processes}}
       <v-container fill-height>
         <v-layout row wrap>
           <v-flex xs3 ma-0>
@@ -71,6 +70,9 @@
           <v-flex xs12 mb-2>
             <v-btn fab dark small class="indigo" @click="addProcess()">
               <v-icon dark>add</v-icon>
+            </v-btn>
+            <v-btn fab dark small class="indigo" @click="panelDialog = true">
+              <v-icon>event</v-icon>
             </v-btn>
           </v-flex>
         </v-layout>
@@ -205,6 +207,36 @@
             <v-card-text dir="rtl">
               <v-container>
                 <v-layout row>
+                  <v-flex v-for="(item, i) in 4" xs3 mb-3>
+                    <v-card>
+                      <v-card-text>
+                        {{countries[i].name}}
+                        <v-select
+                          v-bind:items="countries[i].processes"
+                          v-model="deleteProcess[i]"
+                          label="روند ها"
+                          single-line
+                          bottom
+                        ></v-select>
+                      </v-card-text>
+                    </v-card>
+                  </v-flex>
+                </v-layout>
+                <v-layout row>
+                  <v-flex v-for="(item, i) in 4" xs3>
+                    <v-card>
+                      <v-card-text>
+                        {{countries[4+i].name}}
+                        <v-select
+                          v-bind:items="countries[4+i].processes"
+                          v-model="deleteProcess[4+i]"
+                          label="روند ها"
+                          single-line
+                          bottom
+                        ></v-select>
+                      </v-card-text>
+                    </v-card>
+                  </v-flex>
                 </v-layout>
               </v-container>
             </v-card-text>
@@ -642,7 +674,8 @@
         addProcessDialog: false,
         panelDialog: true,
         modalChartData: null,
-        updateModal: false
+        updateModal: false,
+        deleteProcess: [-1, -1, -1, -1, -1, -1, -1, -1]
       }
     },
     components: {
