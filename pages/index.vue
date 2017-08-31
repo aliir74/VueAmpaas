@@ -643,6 +643,9 @@
       },
       addProcess: function () {
         this.tmpProcess = JSON.parse(JSON.stringify(this.defaultProcess))
+        this.indicatorName = ''
+        this.selectedProcess = -1
+        this.selectedCountry = 0
         this.addProcessDialog = true
       },
       saveProcess: function () {
