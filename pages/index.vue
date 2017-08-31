@@ -1,6 +1,7 @@
 <template>
   <v-app id="example-8" dark toolbar>
     <main>
+      {{countries[1].processes}}
       <v-container fill-height>
         <v-layout row wrap>
           <v-flex xs3 ma-0>
@@ -86,7 +87,6 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
-
         <v-dialog v-model="addProcessDialog" persistent width="450px" dir="rtl">
             <v-card dark>
               <v-card-text dir="rtl">
@@ -199,6 +199,20 @@
                 <v-btn class="blue--text darken-1" flat="flat" @click.native="runProcess" :disabled="(newIndicator && saveIndicator)">اعمال</v-btn>
               </v-card-actions>
             </v-card>
+        </v-dialog>
+        <v-dialog v-model="panelDialog" persistent width="450px" dir="rtl">
+          <v-card dark>
+            <v-card-text dir="rtl">
+              <v-container>
+                <v-layout row>
+                </v-layout>
+              </v-container>
+            </v-card-text>
+            <v-card-actions light>
+              <v-spacer></v-spacer>
+              <v-btn class="blue--text darken-1" flat="flat" @click.native="panelDialog = false">OK</v-btn>
+            </v-card-actions>
+          </v-card>
         </v-dialog>
       </v-container>
     </main>
@@ -625,7 +639,8 @@
         polling: null,
         update: [{t: false}, {t: false}, {t: false}, {t: false}, {t: false}, {t: false}, {t: false}, {t: false}],
         dialog: false,
-        addProcessDialog: true,
+        addProcessDialog: false,
+        panelDialog: true,
         modalChartData: null,
         updateModal: false
       }
