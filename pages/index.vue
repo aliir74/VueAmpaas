@@ -49,6 +49,7 @@
                                 name="input-1"
                                 label="نام شاخص جدید"
                                 v-model="indicatorName"
+                                class="input-group--focused"
                                 :disabled="!newIndicator"
                   ></v-text-field>
                   <v-layout row>
@@ -114,16 +115,16 @@
                                   <v-container fluid>
                                     <v-layout row>
                                       <v-flex xs3>
-                                        <v-text-field :disabled="!newIndicator" dir="ltr" label="تکرار ۲" v-model="tmpProcess.gradual[i].repeat2" type="number"></v-text-field>
-                                      </v-flex>
-                                      <v-flex xs3>
-                                        <v-text-field :disabled="!newIndicator" dir="ltr" label="مقدار ۲" v-model="tmpProcess.gradual[i].value2" type="number"></v-text-field>
-                                      </v-flex>
-                                      <v-flex xs3>
                                         <v-text-field :disabled="!newIndicator" dir="ltr" label="تکرار ۱" v-model="tmpProcess.gradual[i].repeat1" type="number"></v-text-field>
                                       </v-flex>
                                       <v-flex xs3>
                                         <v-text-field :disabled="!newIndicator" dir="ltr" label="مقدار ۱" v-model="tmpProcess.gradual[i].value1" type="number"></v-text-field>
+                                      </v-flex>
+                                      <v-flex xs3>
+                                        <v-text-field :disabled="!newIndicator" dir="ltr" label="تکرار ۲" v-model="tmpProcess.gradual[i].repeat2" type="number"></v-text-field>
+                                      </v-flex>
+                                      <v-flex xs3>
+                                        <v-text-field :disabled="!newIndicator" dir="ltr" label="مقدار ۲" v-model="tmpProcess.gradual[i].value2" type="number"></v-text-field>
                                       </v-flex>
                                     </v-layout>
                                   </v-container>
@@ -524,7 +525,7 @@
           text: 'دیفالت',
           value: -1,
           immediate: [0, 0, 0, 0, 0, 0, 0, 0],
-          period: 5,
+          period: 30,
           gradual: [
             {
               value1: 0,
@@ -668,7 +669,7 @@
         console.log('tmp process', this.tmpProcess)
         this.indicatorName = ''
         this.selectedProcess = -1
-        // run in selectedProcess watcher :this.tmpProcess = JSON.parse(JSON.stringify(this.defaultProcess))
+        this.tmpProcess = JSON.parse(JSON.stringify(this.defaultProcess))
         this.selectedCountry = 0
         this.addProcessDialog = true
         console.log('hello')
