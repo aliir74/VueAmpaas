@@ -155,7 +155,7 @@
                     <v-card>
                       <v-card-text>
                         {{countries[i].name}}
-                        <v-checkbox v-bind:label="'آمپاس!!!'" v-model="countries[i].ampaas" dark></v-checkbox>
+                        <v-checkbox v-bind:label="'آمپاس!!!'" v-model="countries[i].ampaas" dark @change="changeAmpaas(i)"></v-checkbox>
                         <v-select
                           v-bind:items="countries[i].processes"
                           v-model="deleteProcess[i]"
@@ -176,7 +176,7 @@
                     <v-card>
                       <v-card-text>
                         {{countries[4+i].name}}
-                        <v-checkbox v-bind:label="'آمپاس!!!'" v-model="countries[4+i].ampaas" dark></v-checkbox>
+                        <v-checkbox v-bind:label="'آمپاس!!!'" v-model="countries[4+i].ampaas" dark @change="changeAmpaas(4+i)"></v-checkbox>
                         <v-select
                           v-bind:items="countries[4+i].processes"
                           v-model="deleteProcess[4+i]"
@@ -259,7 +259,7 @@
           {
             name: 'کشور ۱',
             text: 'کشور ۱',
-            ampaas: true,
+            ampaas: false,
             value: 0,
             chartData:
               {
@@ -278,7 +278,7 @@
             name: 'کشور ۲',
             text: 'کشور ۲',
             value: 1,
-            ampaas: true,
+            ampaas: false,
             chartData:
               {
                 labels: ['نظامی', 'اقتصادی', 'دیپلماسی', 'به-آموز', 'دادگستری', 'صنعت', 'عمران', 'رضایت'],
@@ -774,8 +774,11 @@
         clearInterval(this.countries[index].processes[a].value)
         this.countries[index].processes.splice(a, 1)
       },
-      kill: function () {
-        clearInterval(this.polling)
+      changeAmpaas: function (x) {
+        var data = {
+          ampaas: this.countries[x].ampaas
+        }
+        this.$axios.put('/country/ampaas/' + this.countries[x]._id, data)
       }
     },
     watch: {
