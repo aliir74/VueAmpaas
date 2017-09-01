@@ -39,7 +39,7 @@ module.exports = {
   },
   plugins: ['plugins/vuetify.js'],
   // css: ['node_modules/vuetify/dist/vuetify.min.css']
-  modules: ['@nuxtjs/toast', '@nuxtjs/proxy'],
+  modules: ['@nuxtjs/toast', '@nuxtjs/proxy', '@nuxtjs/axios'],
   proxy: [
     process.env.API_URL || 'http://localhost:3000/api'
   ]

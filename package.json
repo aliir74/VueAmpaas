@@ -4,6 +4,11 @@
   "description": "Nuxt.js project",
   "author": "Ali Irani <aliirani74@gmail.com>",
   "private": true,
+  "config": {
+    "nuxt": {
+      "port": "3001"
+    }
+  },
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
@@ -13,6 +18,7 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "@nuxtjs/axios": "^4.0.0",
     "@nuxtjs/proxy": "^1.1.1",
     "@nuxtjs/toast": "^1.0.2",
     "async-polling": "^0.2.1",

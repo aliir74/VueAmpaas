@@ -782,6 +782,9 @@
       selectedProcess: function (val) {
         this.tmpProcess = JSON.parse(JSON.stringify(this.processes[val]))
       }
+    },
+    mounted: async function () {
+      this.countries = (await this.$axios.get('/country')).data
     }
   }
 </script>
