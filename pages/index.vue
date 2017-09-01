@@ -11,7 +11,7 @@
               <bar-chart :chart-data="countries[i].chartData" :update="update[i]" :options="options"></bar-chart>
             </v-card>
           </v-flex>
-          <v-flex xs12 mb-2>
+          <v-flex xs3 mb-2>
             <v-btn fab dark small class="indigo" @click.native="addProcess">
               <v-icon dark>add</v-icon>
             </v-btn>
@@ -174,7 +174,7 @@
                   </v-flex>
                 </v-layout>
                 <v-layout row>
-                  <v-flex v-for="(item, i) in 4" xs3>
+                  <v-flex v-for="(item, i) in 5" xs3>
                     <v-card>
                       <v-card-text>
                         {{countries[4+i].name}}
@@ -253,7 +253,7 @@
             }]
           }
         },
-        newIndicator: true,
+        newIndicator: false,
         saveIndicator: false,
         test: true,
         testValue: -50,
@@ -404,6 +404,24 @@
                   }
                 ]
               },
+            processes: []
+          },
+          {
+            name: 'کشور ۹',
+            text: 'کشور ۹',
+            ampaas: false,
+            value: 0,
+            chartData:
+            {
+              labels: ['نظامی', 'اقتصادی', 'دیپلماسی', 'به-آموز', 'دادگستری', 'صنعت', 'عمران', 'رضایت'],
+              datasets: [
+                {
+                  label: 'گروه ۹',
+                  backgroundColor: 'black',
+                  data: [1, 2, 3, 4, 5, 6, 10, 20]
+                }
+              ]
+            },
             processes: []
           }
         ],
@@ -665,14 +683,11 @@
         this.dialog = !this.dialog
       },
       addProcess: function () {
-        console.log('default process', this.defaultProcess)
-        console.log('tmp process', this.tmpProcess)
         this.indicatorName = ''
         this.selectedProcess = -1
         this.tmpProcess = JSON.parse(JSON.stringify(this.defaultProcess))
         this.selectedCountry = 0
         this.addProcessDialog = true
-        console.log('hello')
       },
       saveProcess: async function () {
         var newobj = JSON.parse(JSON.stringify(this.tmpProcess))
@@ -688,7 +703,7 @@
         try {
           newobj = await this.$axios.post('process', fields)
           this.processes.push(newobj)
-          this.$success('hey!')
+          this.$success('hey! save process')
         }
         catch (err) {
           this.$error('1', err)
@@ -710,9 +725,8 @@
           newobj = (await this.$axios.post('process', fields)).data
           this.processes.push(newobj)
           this.selectedProcess = newobj.value
-          console.log('newobj', newobj)
           this.runProcess(newobj._id)
-          this.$success('hey!')
+          this.$success('hey! run and save process')
         }
         catch (err) {
           this.$error('2', err)
@@ -720,7 +734,6 @@
       },
       runProcess: async function (prId) {
         const that = this
-        console.log('bug', that.countries[that.selectedCountry].chartData)
         for (var i = 0; i < 8; i++) {
           that.countries[that.selectedCountry].chartData.datasets[0].data[i] += that.tmpProcess.immediate[i]
           if (that.countries[that.selectedCountry].chartData.datasets[0].data[i] > 100) {
@@ -780,7 +793,7 @@
             // console.log(that.countries[index].processes)
             clearInterval(polling)
           }
-        }, that.tmpProcess.period * 1000)
+        }, that.tmpProcess.period / 2 * 1000)
         let fields = {
           processId: prId,
           polling: polling
@@ -788,7 +801,7 @@
         try {
           await this.$axios.post('country/process/' + this.countries[this.selectedCountry]._id, fields)
           this.countries[this.selectedCountry].processes.push({text: this.processes[this.selectedProcess].text, value: polling, id: prId})
-          this.$success('hey!')
+          this.$success('hey! run process')
         }
         catch (err) {
           this.$error('3', err)
@@ -802,10 +815,10 @@
         }
         try {
           await this.$axios.put('country/' + this.countries[index]._id, fields)
-          this.$success('hey!!!!!!')
+          this.$info('hey country ' + (index + 1).toString() + '!!!!!!')
         }
         catch (err) {
-          this.$error('4' ,err)
+          this.$error('4', err)
         }
         var obj = this.update[index]
         obj.t = !obj.t
@@ -845,7 +858,7 @@
         }
         try {
           this.$axios.put('/country/ampaas/' + this.countries[x]._id, data)
-          this.$success('hey!')
+          this.$success('hey! change Ampaas')
         }
         catch (err) {
           this.$error('6', err)
