@@ -142,7 +142,7 @@
                 <v-spacer></v-spacer>
                 <v-btn class="blue--text darken-1" flat="flat" @click.native="saveProcess" :disabled="!newIndicator || (newIndicator && !saveIndicator)">ذخیره</v-btn>
                 <v-btn class="blue--text darken-1" flat="flat" @click.native="runAndSaveProcess" :disabled="!newIndicator || (newIndicator && !saveIndicator)">ذخیره و اعمال</v-btn>
-                <v-btn class="blue--text darken-1" flat="flat" @click.native="runProcess" :disabled="(newIndicator && saveIndicator)">اعمال</v-btn>
+                <!-- <v-btn class="blue--text darken-1" flat="flat" @click.native="runProcess" :disabled="(newIndicator && saveIndicator)">اعمال</v-btn>-->
               </v-card-actions>
             </v-card>
         </v-dialog>
@@ -678,7 +678,7 @@
         this.processes.push(newobj)
         this.addProcessDialog = false
       },
-      runAndSaveProcess: function () {
+      runAndSaveProcess: async function () {
         var newobj = JSON.parse(JSON.stringify(this.tmpProcess))
         if (this.indicatorName === '') {
           this.$error('نام شاخص جدید را انتخاب نکرده اید')
@@ -686,10 +686,14 @@
         }
         newobj.text = this.indicatorName
         newobj.value = this.processes.length
+        var fields = {
+          obj: newobj
+        }
+        newobj = await this.$axios.post('process', fields)
         this.processes.push(newobj)
-        this.runProcess()
+        this.runProcess(newobj._id)
       },
-      runProcess: function () {
+      runProcess: async function (prId) {
         const that = this
         for (var i = 0; i < 8; i++) {
           that.countries[that.selectedCountry].chartData.datasets[0].data[i] += that.tmpProcess.immediate[i]
@@ -752,11 +756,12 @@
           }
         }, that.tmpProcess.period * 1000)
         this.$success('hey!')
-        if (!this.newIndicator) {
-          this.countries[this.selectedCountry].processes.push({text: this.processes[this.selectedProcess].text, value: polling})
-        } else {
-          this.countries[this.selectedCountry].processes.push({text: this.indicatorName, value: polling})
+        let fields = {
+          processId: prId,
+          polling: polling
         }
+        await this.$axios.post('country/process/' + this.countries[this.selectedCountry]._id, fields)
+        this.countries[this.selectedCountry].processes.push({text: this.processes[this.selectedProcess].text, value: polling})
         this.addProcessDialog = false
       },
       updateChart: function (index) {
