@@ -706,8 +706,9 @@
           obj: newobj
         }
         try {
-          newobj = await this.$axios.post('process', fields)
+          newobj = (await this.$axios.post('process', fields)).data
           this.processes.push(newobj)
+          this.selectedProcess = newobj.value
           console.log('newobj', newobj)
           this.runProcess(newobj._id)
           this.$success('hey!')
