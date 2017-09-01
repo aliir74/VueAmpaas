@@ -836,29 +836,6 @@
         catch (err) {
           this.$error(err)
         }
-      },
-      mmm: async function () {
-        try {
-          this.countries = JSON.parse(JSON.stringify((await this.$axios.get('/country')).data))
-          console.log(this.countries, 'country')
-          for (var i = 0; i < this.countries.length; i++) {
-            var obj = this.update[i]
-            obj.t = !obj.t
-            this.$set(this.update, i, JSON.parse(JSON.stringify(obj)))
-          }
-          this.$success('Get countries successfully')
-        }
-        catch (err) {
-          this.$error('Err in getting countries')
-        }
-        try {
-          this.processes = JSON.parse(JSON.stringify((await this.$axios.get('/process')).data))
-          console.log(this.processes, 'processes')
-          this.$success('Get processes successfully')
-        }
-        catch (err) {
-          this.$error('Err in getting processes')
-        }
       }
     },
     watch: {
@@ -870,8 +847,28 @@
         }
       }
     },
-    mounted: function () {
-      this.mmm()
+    mounted: async function () {
+      try {
+        this.countries = JSON.parse(JSON.stringify((await this.$axios.get('/country')).data))
+        console.log(this.countries, 'country')
+        for (var i = 0; i < this.countries.length; i++) {
+          var obj = this.update[i]
+          obj.t = !obj.t
+          this.$set(this.update, i, JSON.parse(JSON.stringify(obj)))
+        }
+        this.$success('Get countries successfully')
+      }
+      catch (err) {
+        this.$error('Err in getting countries')
+      }
+      try {
+        this.processes = JSON.parse(JSON.stringify((await this.$axios.get('/process')).data))
+        console.log(this.processes, 'processes')
+        this.$success('Get processes successfully')
+      }
+      catch (err) {
+        this.$error('Err in getting processes')
+      }
     }
   }
 </script>
