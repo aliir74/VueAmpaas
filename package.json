@@ -13,6 +13,7 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "@nuxtjs/proxy": "^1.1.1",
     "@nuxtjs/toast": "^1.0.2",
     "async-polling": "^0.2.1",
     "chart.js": "^2.6.0",

@@ -39,5 +39,5 @@ module.exports = {
   },
   plugins: ['plugins/vuetify.js'],
   // css: ['node_modules/vuetify/dist/vuetify.min.css']
-  modules: ['@nuxtjs/toast']
+  modules: ['@nuxtjs/toast', '@nuxtjs/proxy',]
 }
