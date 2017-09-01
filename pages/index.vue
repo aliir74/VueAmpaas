@@ -786,12 +786,13 @@
         }
         try {
           await this.$axios.post('country/process/' + this.countries[this.selectedCountry]._id, fields)
+          this.countries[this.selectedCountry].processes.push({text: this.processes[this.selectedProcess].text, value: polling, id: prId})
           this.$success('hey!')
         }
         catch (err) {
           this.$error(err)
         }
-        this.countries[this.selectedCountry].processes.push({text: this.processes[this.selectedProcess].text, value: polling})
+
         this.addProcessDialog = false
       },
       updateChart: async function (index) {
@@ -811,7 +812,7 @@
         this.$set(this.update, index, JSON.parse(JSON.stringify(obj)))
         console.log('af')
       },
-      deleteProcessFunc: function (index) {
+      deleteProcessFunc: async function (index) {
         var a
         console.log(this.deleteProcess[index])
         for (var i = 0; i < this.countries[index].processes.length; i++) {
@@ -822,8 +823,20 @@
         }
         console.log(this.countries[index].processes[a])
         // var a = this.countries[index].processes.indexOf(this.deleteProcess[index])
-        clearInterval(this.countries[index].processes[a].value)
-        this.countries[index].processes.splice(a, 1)
+        var fields = {
+          id: this.countries[index].processes[a].id,
+          polling: this.countries[index].processes[a].value
+        }
+        console.log('delete process function:', fields)
+        try {
+          await this.$axios.put('country/process/' + this.countries[index]._id, fields)
+          clearInterval(this.countries[index].processes[a].value)
+          this.countries[index].processes.splice(a, 1)
+          this.$success('heyy delete')
+        }
+        catch (err) {
+          this.$error(err)
+        }
       },
       changeAmpaas: function (x) {
         var data = {
@@ -845,6 +858,9 @@
         } else {
           this.tmpProcess = JSON.parse(JSON.stringify(this.defaultProcess))
         }
+      },
+      newIndicator: function (val) {
+        this.tmpProcess = JSON.parse(JSON.stringify(this.defaultProcess))
       }
     },
     mounted: async function () {
