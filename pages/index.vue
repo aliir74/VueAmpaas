@@ -12,10 +12,10 @@
             </v-card>
           </v-flex>
           <v-flex xs12 mb-2>
-            <v-btn fab dark small class="indigo" @click="addProcess()">
+            <v-btn fab dark small class="indigo" @click.native="addProcess">
               <v-icon dark>add</v-icon>
             </v-btn>
-            <v-btn fab dark small class="indigo" @click="panelDialog = true">
+            <v-btn fab dark small class="indigo" @click.native="panelDialog = true">
               <v-icon>event</v-icon>
             </v-btn>
           </v-flex>
@@ -140,6 +140,7 @@
               </v-card-text>
               <v-card-actions light>
                 <v-spacer></v-spacer>
+                <v-btn class="blue--text darken-1" flat="flat" @click.native="addProcessDialog = false">انصراف</v-btn>
                 <v-btn class="blue--text darken-1" flat="flat" @click.native="saveProcess" :disabled="!newIndicator">ذخیره</v-btn>
                 <v-btn class="blue--text darken-1" flat="flat" @click.native="runAndSaveProcess" :disabled="!newIndicator">ذخیره و اعمال</v-btn>
                 <v-btn class="blue--text darken-1" flat="flat" @click.native="runProcess(processes[selectedProcess]._id)" :disabled="newIndicator">اعمال</v-btn>
@@ -206,6 +207,8 @@
 </template>
 
 <script>
+  /* eslint-disable brace-style */
+
   import barChart from '~/components/barChart'
 
   export default {
@@ -580,7 +583,7 @@
           period: 5,
           gradual: [
             {
-              value1: -0,
+              value1: 0,
               repeat1: 0,
               value2: 0,
               repeat2: 0
@@ -661,11 +664,14 @@
         this.dialog = !this.dialog
       },
       addProcess: function () {
-        this.tmpProcess = JSON.parse(JSON.stringify(this.defaultProcess))
+        console.log('default process', this.defaultProcess)
+        console.log('tmp process', this.tmpProcess)
         this.indicatorName = ''
         this.selectedProcess = -1
+        // run in selectedProcess watcher :this.tmpProcess = JSON.parse(JSON.stringify(this.defaultProcess))
         this.selectedCountry = 0
         this.addProcessDialog = true
+        console.log('hello')
       },
       saveProcess: async function () {
         var newobj = JSON.parse(JSON.stringify(this.tmpProcess))
@@ -678,8 +684,14 @@
         var fields = {
           obj: newobj
         }
-        newobj = await this.$axios.post('process', fields)
-        this.processes.push(newobj)
+        try {
+          newobj = await this.$axios.post('process', fields)
+          this.processes.push(newobj)
+          this.$success('hey!')
+        }
+        catch (err) {
+          this.$error(err)
+        }
         this.addProcessDialog = false
       },
       runAndSaveProcess: async function () {
@@ -693,9 +705,16 @@
         var fields = {
           obj: newobj
         }
-        newobj = await this.$axios.post('process', fields)
-        this.processes.push(newobj)
-        this.runProcess(newobj._id)
+        try {
+          newobj = await this.$axios.post('process', fields)
+          this.processes.push(newobj)
+          console.log('newobj', newobj)
+          this.runProcess(newobj._id)
+          this.$success('hey!')
+        }
+        catch (err) {
+          this.$error(err)
+        }
       },
       runProcess: async function (prId) {
         const that = this
@@ -759,19 +778,26 @@
             clearInterval(polling)
           }
         }, that.tmpProcess.period * 1000)
-        this.$success('hey!')
         let fields = {
           processId: prId,
           polling: polling
         }
-        await this.$axios.post('country/process/' + this.countries[this.selectedCountry]._id, fields)
+        try {
+          await this.$axios.post('country/process/' + this.countries[this.selectedCountry]._id, fields)
+          this.$success('hey!')
+        }
+        catch (err) {
+          this.$error(err)
+        }
         this.countries[this.selectedCountry].processes.push({text: this.processes[this.selectedProcess].text, value: polling})
         this.addProcessDialog = false
       },
       updateChart: function (index) {
         var obj = this.update[index]
         obj.t = !obj.t
+        console.log('bef')
         this.$set(this.update, index, JSON.parse(JSON.stringify(obj)))
+        console.log('af')
       },
       deleteProcessFunc: function (index) {
         var a
@@ -791,18 +817,40 @@
         var data = {
           ampaas: this.countries[x].ampaas
         }
-        this.$axios.put('/country/ampaas/' + this.countries[x]._id, data)
+        try {
+          this.$axios.put('/country/ampaas/' + this.countries[x]._id, data)
+          this.$success('hey!')
+        }
+        catch (err) {
+          this.$error(err)
+        }
       }
     },
     watch: {
       selectedProcess: function (val) {
-        this.tmpProcess = JSON.parse(JSON.stringify(this.processes[val]))
+        if (val !== -1) {
+          this.tmpProcess = JSON.parse(JSON.stringify(this.processes[val]))
+        } else {
+          this.tmpProcess = JSON.parse(JSON.stringify(this.defaultProcess))
+        }
       }
     },
     mounted: async function () {
-      this.countries = (await this.$axios.get('/country')).data
-      this.processes = (await this.$axios.get('/process')).data
-      console.log(this.processes)
+      try {
+        this.countries = (await this.$axios.get('/country')).data
+        this.$success('Get countries successfully')
+      }
+      catch (err) {
+        this.$error('Err in getting countries')
+      }
+      try {
+        this.processes = (await this.$axios.get('/process')).data
+        console.log(this.processes, 'processes')
+        this.$success('Get processes successfully')
+      }
+      catch (err) {
+        this.$error('Err in getting processes')
+      }
     }
   }
 </script>
