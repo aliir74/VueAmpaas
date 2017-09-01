@@ -691,7 +691,7 @@
           this.$success('hey!')
         }
         catch (err) {
-          this.$error(err)
+          this.$error('1', err)
         }
         this.addProcessDialog = false
       },
@@ -715,7 +715,7 @@
           this.$success('hey!')
         }
         catch (err) {
-          this.$error(err)
+          this.$error('2', err)
         }
       },
       runProcess: async function (prId) {
@@ -791,7 +791,7 @@
           this.$success('hey!')
         }
         catch (err) {
-          this.$error(err)
+          this.$error('3', err)
         }
 
         this.addProcessDialog = false
@@ -805,7 +805,7 @@
           this.$success('hey!!!!!!')
         }
         catch (err) {
-          this.$error(err, 'k!!!!')
+          this.$error('4' ,err)
         }
         var obj = this.update[index]
         obj.t = !obj.t
@@ -836,7 +836,7 @@
           this.$success('heyy delete')
         }
         catch (err) {
-          this.$error(err)
+          this.$error('5', err)
         }
       },
       changeAmpaas: function (x) {
@@ -848,7 +848,7 @@
           this.$success('hey!')
         }
         catch (err) {
-          this.$error(err)
+          this.$error('6', err)
         }
       },
       loadData: async function () {
