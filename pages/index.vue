@@ -636,13 +636,13 @@
         selectedProcess: -1,
         selectedCountry: 0,
         polling: null,
-        update: [{t: false}, {t: false}, {t: false}, {t: false}, {t: false}, {t: false}, {t: false}, {t: false}],
+        update: [{t: false}, {t: false}, {t: false}, {t: false}, {t: false}, {t: false}, {t: false}, {t: false}, {t: false}],
         dialog: false,
         addProcessDialog: false,
         panelDialog: false,
         modalChartData: null,
         updateModal: false,
-        deleteProcess: [-1, -1, -1, -1, -1, -1, -1, -1]
+        deleteProcess: [-1, -1, -1, -1, -1, -1, -1, -1, -1]
       }
     },
     components: {
@@ -849,6 +849,30 @@
         catch (err) {
           this.$error(err)
         }
+      },
+      loadData: async function () {
+        try {
+          this.countries = JSON.parse(JSON.stringify((await this.$axios.get('/country')).data))
+          console.log(this.countries, 'country')
+          for (var i = 0; i < this.countries.length; i++) {
+            var obj = this.update[i]
+            console.log(obj)
+            obj.t = !obj.t
+            this.$set(this.update, i, JSON.parse(JSON.stringify(obj)))
+          }
+          this.$success('Get countries successfully')
+        }
+        catch (err) {
+          this.$error('Err in getting countries', err)
+        }
+        try {
+          this.processes = JSON.parse(JSON.stringify((await this.$axios.get('/process')).data))
+          console.log(this.processes, 'processes')
+          this.$success('Get processes successfully')
+        }
+        catch (err) {
+          this.$error('Err in getting processes')
+        }
       }
     },
     watch: {
@@ -863,28 +887,8 @@
         this.tmpProcess = JSON.parse(JSON.stringify(this.defaultProcess))
       }
     },
-    mounted: async function () {
-      try {
-        this.countries = JSON.parse(JSON.stringify((await this.$axios.get('/country')).data))
-        console.log(this.countries, 'country')
-        for (var i = 0; i < this.countries.length; i++) {
-          var obj = this.update[i]
-          obj.t = !obj.t
-          this.$set(this.update, i, JSON.parse(JSON.stringify(obj)))
-        }
-        this.$success('Get countries successfully')
-      }
-      catch (err) {
-        this.$error('Err in getting countries')
-      }
-      try {
-        this.processes = JSON.parse(JSON.stringify((await this.$axios.get('/process')).data))
-        console.log(this.processes, 'processes')
-        this.$success('Get processes successfully')
-      }
-      catch (err) {
-        this.$error('Err in getting processes')
-      }
+    mounted: function () {
+      this.loadData()
     }
   }
 </script>
