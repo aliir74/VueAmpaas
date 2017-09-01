@@ -42,7 +42,7 @@
                       <v-checkbox v-bind:label="'ساخت شاخص جدید'" v-model="newIndicator" dark></v-checkbox>
                     </v-flex>
                     <v-flex mr-4>
-                      <v-checkbox v-bind:label="'ذخیره شاخص جدید'" v-model="saveIndicator" dark :disabled="!newIndicator"></v-checkbox>
+                      <!--<v-checkbox v-bind:label="'ذخیره شاخص جدید'" v-model="saveIndicator" dark :disabled="!newIndicator"></v-checkbox>-->
                     </v-flex>
                   </v-layout>
                   <v-text-field dir="rtl"
@@ -140,9 +140,9 @@
               </v-card-text>
               <v-card-actions light>
                 <v-spacer></v-spacer>
-                <v-btn class="blue--text darken-1" flat="flat" @click.native="saveProcess" :disabled="!newIndicator || (newIndicator && !saveIndicator)">ذخیره</v-btn>
-                <v-btn class="blue--text darken-1" flat="flat" @click.native="runAndSaveProcess" :disabled="!newIndicator || (newIndicator && !saveIndicator)">ذخیره و اعمال</v-btn>
-                <!-- <v-btn class="blue--text darken-1" flat="flat" @click.native="runProcess" :disabled="(newIndicator && saveIndicator)">اعمال</v-btn>-->
+                <v-btn class="blue--text darken-1" flat="flat" @click.native="saveProcess" :disabled="!newIndicator">ذخیره</v-btn>
+                <v-btn class="blue--text darken-1" flat="flat" @click.native="runAndSaveProcess" :disabled="!newIndicator">ذخیره و اعمال</v-btn>
+                <v-btn class="blue--text darken-1" flat="flat" @click.native="runProcess(processes[selectedProcess]._id)" :disabled="newIndicator">اعمال</v-btn>
               </v-card-actions>
             </v-card>
         </v-dialog>
@@ -250,7 +250,7 @@
           }
         },
         newIndicator: true,
-        saveIndicator: true,
+        saveIndicator: false,
         test: true,
         testValue: -50,
         drawer: null,
@@ -411,8 +411,8 @@
             period: 5,
             gradual: [
               {
-                value: 1,
-                repeat: 3,
+                value1: 1,
+                repeat1: 3,
                 value2: 2,
                 repeat2: 3
               },
@@ -467,8 +467,8 @@
             period: 5,
             gradual: [
               {
-                value: -1,
-                repeat: 3,
+                value1: -1,
+                repeat1: 3,
                 value2: -2,
                 repeat2: 5
               },
@@ -667,7 +667,7 @@
         this.selectedCountry = 0
         this.addProcessDialog = true
       },
-      saveProcess: function () {
+      saveProcess: async function () {
         var newobj = JSON.parse(JSON.stringify(this.tmpProcess))
         if (this.indicatorName === '') {
           this.$error('نام شاخص جدید را انتخاب نکرده اید')
@@ -675,6 +675,10 @@
         }
         newobj.text = this.indicatorName
         newobj.value = this.processes.length
+        var fields = {
+          obj: newobj
+        }
+        newobj = await this.$axios.post('process', fields)
         this.processes.push(newobj)
         this.addProcessDialog = false
       },
@@ -797,6 +801,8 @@
     },
     mounted: async function () {
       this.countries = (await this.$axios.get('/country')).data
+      this.processes = (await this.$axios.get('/process')).data
+      console.log(this.processes)
     }
   }
 </script>
