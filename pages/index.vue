@@ -23,8 +23,8 @@
 
         <v-dialog v-model="dialog" persistent width="450px">
           <v-card light>
-            <div class="alert success pa-2 elevation-9 border-0" dir="rtl">
-              <strong class="ampaas-text">کشور</strong>
+            <div class="alert pa-2 elevation-9 border-0" :class="{ 'red': modalAmpaas, 'success': !modalAmpaas }" dir="rtl">
+              <strong class="ampaas-text">{{modalCountryName}}</strong>
             </div>
             <bar-chart :chart-data="modalChartData" :update="updateModal" :options="modalOptions"></bar-chart>
             <v-card-actions light>
@@ -211,6 +211,8 @@
   export default {
     data () {
       return {
+        modalCountryName: '',
+        modalAmpaas: false,
         options: {
           animation: {easing: 'easeOutBounce'},
           scales: {
@@ -654,6 +656,8 @@
       showModal: function (x) {
         this.modalChartData = this.countries[x].chartData
         this.updateModal = !this.updateModal
+        this.modalCountryName = this.countries[x].name
+        this.modalAmpaas = this.countries[x].ampaas
         this.dialog = !this.dialog
       },
       addProcess: function () {
