@@ -215,6 +215,7 @@
   export default {
     data () {
       return {
+        result: [-1, -1, -1, -1, -1, -1, -1, -1, -1],
         modalCountryName: '',
         modalAmpaas: false,
         options: {
@@ -793,7 +794,7 @@
             // console.log(that.countries[index].processes)
             clearInterval(polling)
           }
-        }, that.tmpProcess.period / 2 * 1000)
+        }, that.tmpProcess.period / 2 * 1000 * 60)
         let fields = {
           processId: prId,
           polling: polling
@@ -810,10 +811,11 @@
         this.addProcessDialog = false
       },
       updateChart: async function (index) {
-        var fields = {
-          country: JSON.parse(JSON.stringify(this.countries[index].chartData.datasets[0].data))
-        }
         try {
+          let fields = {
+            country: JSON.parse(JSON.stringify(this.countries[index].chartData.datasets[0].data))
+          }
+          console.log('update chart', fields)
           await this.$axios.put('country/' + this.countries[index]._id, fields)
           this.$info('hey country ' + (index + 1).toString() + '!!!!!!')
         }
@@ -887,6 +889,21 @@
         catch (err) {
           this.$error('Err in getting processes')
         }
+        this.calculateResult()
+      },
+      calculateResult: function () {
+        /*
+        for (i = 0; i < 9; i++) {
+          this.result[i] = 0
+          var data = this.countries[i].chartData.datasets[0].data
+          for (j = 0; j < 8; j++) {
+            this.result[i] += data[j]
+            for(x = 50; x < 100; x += 10)
+            if(data[j] > x) {
+              this.result[i] += (data[i]-x)*((x-50)/10)
+            }
+          }
+        } */
       }
     },
     watch: {
